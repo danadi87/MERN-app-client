@@ -1,0 +1,33 @@
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  color: darkorange;
+  font-size: larger;
+  padding-bottom: 20px;
+}
+button,
+p {
+  color: darkorange;
+}
+.signup a {
+  text-decoration: none;
+  color: darkorange;
+  border: 1px solid orange;
+  padding: 10px;
+  border-radius: 5px;
+}
+button {
+  background-color: white;
+  border: 1px solid orange;
+  padding: 10px;
+  border-radius: 5px;
+  font-weight: bold;
+}
+p {
+  padding-top: 20px;
+}
+.signup {
+  padding-bottom: 50px;
+}

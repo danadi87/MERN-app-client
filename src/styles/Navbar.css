@@ -1,0 +1,29 @@
+.navbar {
+  position: sticky;
+  top: 0;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  align-items: center;
+  border: 1px solid darkorange;
+  background-color: white;
+  padding: 0 20px;
+}
+#navbar-top {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25);
+}
+.links {
+  display: flex;
+  justify-content: flex-end;
+  gap: 15px;
+}
+.links a {
+  text-decoration: none;
+  color: darkorange;
+  font-weight: bold;
+}
+.navbar a {
+  text-decoration: none;
+  color: darkorange;
+  font-weight: bold;
+}

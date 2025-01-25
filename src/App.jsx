@@ -16,37 +16,23 @@ const api = axios.create({
 });
 
 export default function App() {
-  const [count, setCount] = useState(0);
-
   return (
-    <Router>
-      <div className="flex flex-col min-h-screen">
-        <Navbar />
-        <Routes>
-          <Route
-            path="/"
-            element={
-              <>
-                <Carousel />
-                <Content />
-                <div className="card">
-                  <button
-                    onClick={() => setCount((prevCount) => prevCount + 1)}
-                  >
-                    count is {count}
-                  </button>
-                  <p>
-                    Edit <code>src/App.jsx</code> and save to test HMR
-                  </p>
-                </div>
-              </>
-            }
-          />
-          <Route path="/signup" element={<Signup />} />
-          <Route path="/login" element={<Login />} />
-        </Routes>
-        <Footer />
-      </div>
-    </Router>
+    <div className="flex flex-col min-h-screen">
+      <Navbar />
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <>
+              <Carousel />
+              <Content />
+            </>
+          }
+        />
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/login" element={<Login />} />
+      </Routes>
+      <Footer />
+    </div>
   );
 }
