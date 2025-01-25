@@ -5,7 +5,9 @@ import { Link } from "react-router-dom";
 export function Navbar() {
   return (
     <div className="navbar" id="navbar-top">
-      <h1>This is my Navbar</h1>
+      <Link to="/">
+        <h3>AllInOneClick</h3>
+      </Link>
       <div className="links">
         <Link to="/signup">Signup</Link>
         <Link to="/login">Login</Link>
