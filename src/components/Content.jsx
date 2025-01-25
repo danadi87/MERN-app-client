@@ -1,7 +1,5 @@
 import React from "react";
 
-function content() {
+export function Content() {
   return <div>content</div>;
 }
-
-export default content;

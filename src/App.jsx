@@ -1,16 +1,12 @@
 import { useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import axios from "axios"; // Ensure you import axios
-// import { Navbar } from "./components/Navbar";
-// import { Signup } from "./components/Signup";
-// import { Login } from "./components/Login";
+import axios from "axios";
+import { Navbar } from "./components/Navbar";
+import { Signup } from "./components/Signup";
+import { Login } from "./components/Login";
 import { Carousel } from "./components/Carousel";
 import { Content } from "./components/Content";
 import { Footer } from "./components/Footer";
-
-// import dataJson from "./assets/data.json";
-import { useState } from "react";
-// import { useNavigate } from "react-router-dom";
 
 import "./App.css";
 

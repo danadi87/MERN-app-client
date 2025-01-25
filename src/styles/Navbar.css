@@ -1,0 +1,19 @@
+.navbar {
+  position: sticky;
+  top: 0;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  align-items: center;
+  border: 1px solid black;
+  background-color: white;
+  padding: 0 20px;
+}
+#navbar-top {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25);
+}
+.links {
+  display: flex;
+  justify-content: flex-end;
+  gap: 15px;
+}
