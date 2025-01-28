@@ -9,7 +9,7 @@ export function Navbar() {
         <h3>AllInOneClick</h3>
       </Link>
       <div className="links">
-        <Link to="/signup">Signup</Link>
+        <Link to="/signup">Sign in</Link>
         <Link to="/login">Login</Link>
         <Link to="/myprofile">My profile</Link>
         <Link to="/favorites">Favorites</Link>
