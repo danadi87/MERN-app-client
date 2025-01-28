@@ -16,43 +16,24 @@ export function Carousel() {
   }, []);
 
   return (
-    <div className="relative w-full h-64 sm:h-80 md:h-96">
-      {/* Images */}
-      <div
-        className="flex transition-transform duration-500"
-        style={{ transform: `translateX(-${currentIndex * 100}%)` }}
-      >
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        width: "100%",
+      }}
+    >
+      <div style={{ display: "flex", gap: "20px", justifyContent: "center" }}>
         {images.map((image, index) => (
-          <div key={index} className="flex-shrink-0 w-full h-full">
+          <div key={index} style={{ flex: "0 0 auto", width: "33%" }}>
             <img
               src={image}
               alt={`Carousel Image ${index + 1}`}
-              className="w-full h-full object-cover"
+              style={{ width: "100%", height: "auto", objectFit: "cover" }}
+              onClick={() => (window.location.href = "/signup")}
             />
           </div>
-        ))}
-      </div>
-
-      {/* Text overlay */}
-      <div className="absolute inset-0 flex justify-center items-center text-center text-white bg-gradient-to-t from-black to-transparent">
-        <div className="space-y-4">
-          <h1 className="text-4xl sm:text-5xl font-bold">AllInOneClick</h1>
-          <p className="text-lg sm:text-2xl italic">
-            Everything you need in just one click
-          </p>
-        </div>
-      </div>
-
-      {/* Navigation dots */}
-      <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
-        {images.map((_, index) => (
-          <span
-            key={index}
-            onClick={() => setCurrentIndex(index)}
-            className={`w-3 h-3 rounded-full ${
-              currentIndex === index ? "bg-white" : "bg-gray-500"
-            } cursor-pointer`}
-          />
         ))}
       </div>
     </div>
