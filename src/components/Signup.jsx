@@ -36,7 +36,7 @@ export function Signup() {
   return (
     <div className="signup">
       <form onSubmit={handleSignupSubmit}>
-        <h1>Signup</h1>
+        <h1>Sign in</h1>
         <label className="label">Email</label>
         <input
           type="email"
