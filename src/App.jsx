@@ -1,5 +1,4 @@
 import React from "react";
-import { useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import axios from "axios";
 import { Navbar } from "./components/Navbar";
@@ -8,6 +7,9 @@ import { Content } from "./components/Content";
 import { Footer } from "./components/Footer";
 import { Signup } from "./components/Signup";
 import { Login } from "./components/Login";
+import { Pharmacy } from "./components/Pharmacy";
+import { Supermarket } from "./components/Supermarket";
+import { Restaurant } from "./components/Restaurant";
 
 import "./App.css";
 
@@ -24,13 +26,16 @@ export default function App() {
           path="/"
           element={
             <>
-              <Carousel />
               <Content />
+              <Carousel />
             </>
           }
         />
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/pharmacy" element={<Pharmacy />} />
+        <Route path="/supermarket" element={<Supermarket />} />
+        <Route path="/restaurant" element={<Restaurant />} />
       </Routes>
       <Footer />
     </div>

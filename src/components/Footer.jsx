@@ -24,37 +24,6 @@ export function Footer() {
                 Contact
               </Link>
             </li>
-            <li>
-              <Link to="/faq" className="footer-link">
-                FAQ
-              </Link>
-            </li>
-          </ul>
-        </section>
-
-        <section className="footer-section">
-          <h3 className="footer-heading">Follow Us</h3>
-          <ul className="footer-links">
-            <li>
-              <Link to="#" className="footer-link">
-                Facebook
-              </Link>
-            </li>
-            <li>
-              <Link to="#" className="footer-link">
-                Instagram
-              </Link>
-            </li>
-            <li>
-              <Link to="#" className="footer-link">
-                Twitter
-              </Link>
-            </li>
-            <li>
-              <Link to="#" className="footer-link">
-                LinkedIn
-              </Link>
-            </li>
           </ul>
         </section>
 
@@ -62,8 +31,8 @@ export function Footer() {
           <h3 className="footer-heading">Contact Us</h3>
           <address className="footer-address">
             <p>
-              <Link to="mailto:info@ecommerce.com" className="footer-link">
-                info@ecommerce.com
+              <Link to="mailto:ecommerce@ironhack.com" className="footer-link">
+                ecommerce@ironhack.com
               </Link>
             </p>
             <p>
@@ -73,31 +42,6 @@ export function Footer() {
             </p>
           </address>
         </section>
-
-        <section className="footer-section">
-          <h3 className="footer-heading">Newsletter</h3>
-          <form>
-            <label htmlFor="email" className="footer-label">
-              Sign up for our newsletter:
-            </label>
-            <input
-              type="email"
-              id="email"
-              placeholder="Your email"
-              className="footer-input"
-              aria-label="Enter your email"
-            />
-            <button type="submit" className="footer-button">
-              Subscribe
-            </button>
-          </form>
-        </section>
-      </div>
-
-      <div className="footer-bottom">
-        <p>
-          &copy; {new Date().getFullYear()} Ecommerce Site. All Rights Reserved.
-        </p>
       </div>
     </footer>
   );

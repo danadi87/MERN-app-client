@@ -1,0 +1,22 @@
+.container {
+  text-align: center;
+  padding: 20px;
+}
+
+.logo-grid {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.logo-grid img {
+  width: 150px;
+  height: auto;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.logo-grid img:hover {
+  transform: scale(1.1);
+}

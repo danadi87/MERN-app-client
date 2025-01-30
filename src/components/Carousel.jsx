@@ -1,19 +1,28 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import pharmacy from "../assets/pharmacy.png";
 import restaurant from "../assets/restaurant.jpg";
 import supermarket from "../assets/supermarket.png";
 
 export function Carousel() {
-  const images = [pharmacy, restaurant, supermarket];
+  const images = [
+    { src: pharmacy, path: "/pharmacy" },
+    { src: restaurant, path: "/restaurant" },
+    { src: supermarket, path: "/supermarket" },
+  ];
+
   const [currentIndex, setCurrentIndex] = useState(0);
+  const navigate = useNavigate();
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
-    }, 3000);
+  const isLoggedIn = !!localStorage.getItem("userToken");
 
-    return () => clearInterval(interval);
-  }, []);
+  const handleImageClick = (path) => {
+    if (isLoggedIn) {
+      navigate(path);
+    } else {
+      navigate("/login");
+    }
+  };
 
   return (
     <div
@@ -28,10 +37,15 @@ export function Carousel() {
         {images.map((image, index) => (
           <div key={index} style={{ flex: "0 0 auto", width: "33%" }}>
             <img
-              src={image}
+              src={image.src}
               alt={`Carousel Image ${index + 1}`}
-              style={{ width: "100%", height: "auto", objectFit: "cover" }}
-              onClick={() => (window.location.href = "/signup")}
+              style={{
+                width: "100%",
+                height: "auto",
+                objectFit: "cover",
+                cursor: "pointer",
+              }}
+              onClick={() => handleImageClick(image.path)}
             />
           </div>
         ))}
