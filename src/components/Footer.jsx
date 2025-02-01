@@ -1,3 +1,4 @@
+// Footer.jsx
 import React from "react";
 import "../styles/Footer.css";
 import { Link } from "react-router-dom";
@@ -8,14 +9,9 @@ export function Footer() {
       <div className="footer-content">
         <section className="footer-section">
           <h3 className="footer-heading">Quick Links</h3>
-          <ul className="footer-links">
+          <ul className="footer-links-horizontal">
             <li>
-              <Link to="/" className="footer-link">
-                Home
-              </Link>
-            </li>
-            <li>
-              <Link to="/about" className="footer-link">
+              <Link to="/aboutus" className="footer-link">
                 About Us
               </Link>
             </li>
@@ -42,6 +38,11 @@ export function Footer() {
             </p>
           </address>
         </section>
+      </div>
+      <div className="footer-bottom">
+        <p>
+          &copy; {new Date().getFullYear()} Ecommerce Site. All Rights Reserved.
+        </p>
       </div>
     </footer>
   );

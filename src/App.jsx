@@ -21,22 +21,24 @@ export default function App() {
   return (
     <div className="flex flex-col min-h-screen">
       <Navbar />
-      <Routes>
-        <Route
-          path="/"
-          element={
-            <>
-              <Content />
-              <Carousel />
-            </>
-          }
-        />
-        <Route path="/signup" element={<Signup />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/pharmacy" element={<Pharmacy />} />
-        <Route path="/supermarket" element={<Supermarket />} />
-        <Route path="/restaurant" element={<Restaurant />} />
-      </Routes>
+      <div className="flex-grow">
+        <Carousel />
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <>
+                <Content />
+              </>
+            }
+          />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/pharmacy" element={<Pharmacy />} />
+          <Route path="/supermarket" element={<Supermarket />} />
+          <Route path="/restaurant" element={<Restaurant />} />
+        </Routes>
+      </div>
       <Footer />
     </div>
   );
