@@ -18,6 +18,7 @@ import IsPrivate from "./components/IsPrivate";
 
 import "./App.css";
 import IsAnon from "./components/IsAnon";
+import { AddProduct } from "./components/AddProduct";
 
 const api = axios.create({
   baseURL: "http://localhost:5005",
@@ -71,10 +72,18 @@ export default function App() {
             }
           />
           <Route
-            path="/shopping-cart"
+            path="/cart"
             element={
               <IsPrivate>
                 <ShoppingCart />
+              </IsPrivate>
+            }
+          />
+          <Route
+            path="/add-product"
+            element={
+              <IsPrivate>
+                <AddProduct />
               </IsPrivate>
             }
           />
