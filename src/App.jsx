@@ -8,13 +8,13 @@ import { Footer } from "./components/Footer";
 import { Signup } from "./components/Signup";
 import { Login } from "./components/Login";
 import { Profile } from "./components/Profile";
-import { Favorites } from "./components/Favorites";
-import { ShoppingCart } from "./components/ShoppingCart";
+import Favorites from "./components/Favorites";
+import ShoppingCart from "./components/ShoppingCart";
 import { Pharmacy } from "./components/Pharmacy";
 import { Supermarket } from "./components/Supermarket";
 import { Restaurant } from "./components/Restaurant";
 import { Product } from "./components/Product";
-import { IsPrivate } from "./components/IsPrivate";
+import IsPrivate from "./components/IsPrivate";
 
 import "./App.css";
 import IsAnon from "./components/IsAnon";
