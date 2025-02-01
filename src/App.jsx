@@ -22,12 +22,12 @@ export default function App() {
     <div className="flex flex-col min-h-screen">
       <Navbar />
       <div className="flex-grow">
-        <Carousel />
         <Routes>
           <Route
             path="/"
             element={
               <>
+                <Carousel />
                 <Content />
               </>
             }

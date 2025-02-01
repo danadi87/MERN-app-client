@@ -49,7 +49,6 @@ export function Carousel() {
         <div style={{ display: "flex", gap: "20px", justifyContent: "center" }}>
           {images.map((image, index) => (
             <div key={index} style={{ flex: "0 0 auto", width: "33%" }}>
-              {/* Title above each image */}
               <h3
                 style={{
                   textAlign: "center",
