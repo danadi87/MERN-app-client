@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import pharmacy from "../assets/pharmacy.png";
 import restaurant from "../assets/restaurant.jpg";
 import supermarket from "../assets/supermarket.png";
+import { AuthContext } from "../context/auth.context";
 
 export function Carousel() {
   const images = [
@@ -12,8 +13,8 @@ export function Carousel() {
   ];
 
   const navigate = useNavigate();
-  const isLoggedIn = !!localStorage.getItem("userToken");
-
+  //const isLoggedIn = !!localStorage.getItem("userToken");
+  const { isLoggedIn } = useContext(AuthContext);
   const handleImageClick = (path) => {
     if (isLoggedIn) {
       navigate(path);
