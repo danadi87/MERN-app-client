@@ -15,6 +15,7 @@ import { Supermarket } from "./components/Supermarket";
 import { Restaurant } from "./components/Restaurant";
 import { Product } from "./components/Product";
 import IsPrivate from "./components/IsPrivate";
+import { Payment } from "./components/Payment";
 
 import "./App.css";
 import IsAnon from "./components/IsAnon";
@@ -87,10 +88,19 @@ export default function App() {
               </IsPrivate>
             }
           />
+          <Route
+            path="payment"
+            element={
+              <IsPrivate>
+                <Payment />
+              </IsPrivate>
+            }
+          />
           <Route path="/pharmacy" element={<Pharmacy />} />
           <Route path="/supermarket" element={<Supermarket />} />
           <Route path="/restaurant" element={<Restaurant />} />
           <Route path="/product" element={<Product />} />
+          <Route path="/addproduct" element={<AddProduct />} />
         </Routes>
       </div>
       <Footer />

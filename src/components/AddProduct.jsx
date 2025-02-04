@@ -58,7 +58,7 @@ export function AddProduct() {
   };
 
   useEffect(() => {
-    setUser({ ...ADD_PROD });
+    setProduct({ ...ADD_PROD });
   }, []);
 
   return (
@@ -66,15 +66,17 @@ export function AddProduct() {
       <form onSubmit={handleAddProductSubmit}>
         <h1>Add a product</h1>
         <label className="label">Category</label>
-        <input
-          type="text"
+        <select
           name="category"
-          id="category"
           value={category}
           onChange={handleCategory}
           disabled={submitting}
-          autoComplete="off"
-        />
+        >
+          <option value="">Select a category</option>
+          <option value="Supermarket">Supermarket</option>
+          <option value="Pharmacy">Pharmacy</option>
+          <option value="Restaurant">Restaurant</option>
+        </select>
         <label className="label">Image</label>
         <input
           type="text"
@@ -104,6 +106,7 @@ export function AddProduct() {
           onChange={handleDescription}
           disabled={submitting}
           autoComplete="off"
+          style={{ width: "15%", height: "50px" }}
         />
         <label className="label">Amount</label>
         <input
