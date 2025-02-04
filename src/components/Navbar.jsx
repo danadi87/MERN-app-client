@@ -14,15 +14,15 @@ export function Navbar() {
       <div className="links">
         {!isLoggedIn ? (
           <>
-            <Link to="/signup">Sign in</Link>
+            <Link to="/signup">Sign up</Link>
             <Link to="/login">Login</Link>
           </>
         ) : (
           <>
-            <Link to="/myprofile">My profile</Link>
+            <Link to="/profile">My profile</Link>
             <Link to="/favorites">Favorites</Link>
             <Link to="/cart">Shopping cart</Link>
-            <Link to="/product">Add a product</Link>
+            <Link to="/addproduct">Add a product</Link>
             <button onClick={logOutUser} className="logout-button">
               Logout
             </button>
