@@ -4,13 +4,7 @@ import "../styles/Content.css";
 const Content = () => {
   return (
     <div className="content-wrapper">
-      <div className="hero-section">
-        <img
-          src="https://via.placeholder.com/1200x500"
-          alt="Main Image"
-          className="hero-image"
-        />
-      </div>
+      <div className="hero-section"></div>
 
       <div className="text-section">
         <h2 className="section-title">What is AllInOneClick?</h2>

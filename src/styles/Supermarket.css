@@ -1,35 +1,79 @@
-.container {
+.supermarket-container {
+  padding: 2rem;
   text-align: center;
-  padding: 20px;
+}
+
+h2 {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 40px;
+  color: #333;
 }
 
 .logo-grid {
   display: flex;
   justify-content: center;
-  gap: 20px;
+  gap: 30px;
   margin-top: 20px;
 }
 
 .logo-grid img {
-  width: 150px;
-  height: auto;
+  width: 100px !important; /* Apply a fixed width and use !important */
+  height: 100px !important; /* Apply a fixed height and use !important */
+  object-fit: contain; /* Maintain the aspect ratio */
   cursor: pointer;
-  transition: transform 0.2s;
+  transition: transform 0.3s ease, box-shadow 0.3s ease-in-out;
+  border-radius: 8px;
 }
 
 .logo-grid img:hover {
   transform: scale(1.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
-.supermarket-container {
-  padding: 2rem;
-  text-align: center;
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+  padding: 0 20px;
 }
-.supermarket-container img {
-  border-radius: 10px;
-  cursor: pointer;
-  transition: transform 0.3s ease;
+
+.product-item {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 16px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
-.supermarket-container img:hover {
-  transform: scale(1.1);
+
+.product-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+}
+
+.product-item img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.product-item h3 {
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: #333;
+  margin-top: 15px;
+}
+
+.product-item p {
+  color: #666;
+  font-size: 1rem;
+  margin: 10px 0;
+}
+
+.product-item .price {
+  font-weight: bold;
+  color: #28a745;
+  font-size: 1.2rem;
+  margin-top: 10px;
 }

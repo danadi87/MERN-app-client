@@ -25,7 +25,6 @@ export function Carousel() {
 
   return (
     <div style={{ backgroundColor: "#ffecd1", paddingBottom: "40px" }}>
-      {/* "What is AllInOneClick?" text */}
       <div
         className="hero-section"
         style={{ textAlign: "center", padding: "20px" }}
@@ -70,9 +69,9 @@ export function Carousel() {
                 }}
                 onClick={() => handleImageClick(image.path)}
               />
-              {/* Click Here Text */}
+
               <p style={{ textAlign: "center", color: "#555" }}>
-                Click here to choose the store
+                Click in the IMAGE to choose the category
               </p>
             </div>
           ))}

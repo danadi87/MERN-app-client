@@ -19,6 +19,8 @@ import IsPrivate from "./components/IsPrivate";
 import "./App.css";
 import IsAnon from "./components/IsAnon";
 import { AddProduct } from "./components/AddProduct";
+import { Aboutus } from "./components/Aboutus"; // Import AboutUs component
+import { Contact } from "./components/Contact"; // Import Contact component
 
 const api = axios.create({
   baseURL: "http://localhost:5005",
@@ -91,6 +93,8 @@ export default function App() {
           <Route path="/supermarket" element={<Supermarket />} />
           <Route path="/restaurant" element={<Restaurant />} />
           <Route path="/product" element={<Product />} />
+          <Route path="/aboutus" element={<Aboutus />} />
+          <Route path="/contact" element={<Contact />} />
         </Routes>
       </div>
       <Footer />
