@@ -1,6 +1,5 @@
-// Aboutus.jsx
 import React from "react";
-import "../styles/Aboutus.css"; // Ensure this matches your folder structure
+import "../styles/Aboutus.css";
 
 export function Aboutus() {
   return (

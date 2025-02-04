@@ -1,12 +1,12 @@
 import React from "react";
-import "../styles/Content.css"; // Add the appropriate CSS for styling
+import "../styles/Content.css";
 
 const Content = () => {
   return (
     <div className="content-wrapper">
       <div className="hero-section">
         <img
-          src="https://via.placeholder.com/1200x500" // Replace with your image
+          src="https://via.placeholder.com/1200x500"
           alt="Main Image"
           className="hero-image"
         />
