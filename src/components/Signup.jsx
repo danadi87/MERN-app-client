@@ -41,7 +41,7 @@ export function Signup() {
     setSubmitting(true);
 
     axios
-      .post(`${API_URL}/api/users`, requestBody)
+      .post(`${API_URL}/api/signup`, requestBody)
       .then(() => {
         setEmail("");
         setPassword("");

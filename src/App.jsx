@@ -102,12 +102,9 @@ export default function App() {
           <Route path="/supermarket" element={<Supermarket />} />
           <Route path="/restaurant" element={<Restaurant />} />
           <Route path="/product" element={<Product />} />
-<<<<<<< HEAD
           <Route path="/aboutus" element={<Aboutus />} />
           <Route path="/contact" element={<Contact />} />
-=======
           <Route path="/addproduct" element={<AddProduct />} />
->>>>>>> 5e0a9733154d97d7518affce4019678988ad1ea7
         </Routes>
       </div>
       <Footer />
