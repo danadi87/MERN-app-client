@@ -20,8 +20,8 @@ import { Payment } from "./components/Payment";
 import "./App.css";
 import IsAnon from "./components/IsAnon";
 import { AddProduct } from "./components/AddProduct";
-import { Aboutus } from "./components/Aboutus"; // Import AboutUs component
-import { Contact } from "./components/Contact"; // Import Contact component
+import { Aboutus } from "./components/Aboutus";
+import { Contact } from "./components/Contact";
 
 const api = axios.create({
   baseURL: "http://localhost:5005",
