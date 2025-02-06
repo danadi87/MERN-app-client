@@ -7,7 +7,12 @@ import telepizzaLogo from "../assets/telepizza.png";
 
 export function Restaurant() {
   const [products, setProducts] = useState([]);
+  const [filteredProducts, setFilteredProducts] = useState([]);
   const [showContent, setShowContent] = useState(true);
+  const [minPrice, setMinPrice] = useState("");
+  const [maxPrice, setMaxPrice] = useState("");
+  const [searchTerm, setSearchTerm] = useState("");
+  const [showProducts, setShowProducts] = useState(false);
 
   const handleBrandClick = (brand) => {
     console.log("Brand clicked, fetching products...");
@@ -19,10 +24,40 @@ export function Restaurant() {
       .then((response) => {
         console.log("Products received from API: ", response.data);
         setProducts(response.data);
+        setFilteredProducts(response.data); // Initialize filtered products with all products
+        setShowProducts(true); // Show the product grid
       })
       .catch((error) => {
         console.error("Error fetching restaurant products:", error);
       });
+  };
+
+  // Filter function for price and search term
+  const handleFilter = () => {
+    let filtered = products;
+
+    if (minPrice) {
+      filtered = filtered.filter(
+        (product) => parseFloat(product.amount) >= parseFloat(minPrice)
+      );
+    }
+
+    if (maxPrice) {
+      filtered = filtered.filter(
+        (product) => parseFloat(product.amount) <= parseFloat(maxPrice)
+      );
+    }
+
+    if (searchTerm.trim()) {
+      const lowerCaseTerm = searchTerm.toLowerCase();
+      filtered = filtered.filter(
+        (product) =>
+          product.title.toLowerCase().includes(lowerCaseTerm) ||
+          product.description.toLowerCase().includes(lowerCaseTerm)
+      );
+    }
+
+    setFilteredProducts(filtered);
   };
 
   return (
@@ -80,25 +115,63 @@ export function Restaurant() {
         </div>
       )}
 
-      {/* Display products after clicking a logo */}
-      <div className="product-grid">
-        {products.length === 0 ? (
-          <p>No products available</p>
-        ) : (
-          products.map((product) => (
-            <div key={product._id} className="product-item">
-              <img
-                src={product.image}
-                alt={product.title}
-                className="product-img"
+      {/* Filter Form */}
+      {showProducts && (
+        <>
+          <div className="filter-form">
+            <h2 className="text-xl font-bold mt-8 mb-4">Filter Products</h2>
+            <div className="filter-controls">
+              <input
+                type="number"
+                placeholder="Min Price"
+                value={minPrice}
+                onChange={(e) => setMinPrice(e.target.value)}
+                className="filter-input"
               />
-              <h3>{product.title}</h3>
-              <p>{product.description}</p>
-              <p className="price">{product.amount}€</p>
+              <input
+                type="number"
+                placeholder="Max Price"
+                value={maxPrice}
+                onChange={(e) => setMaxPrice(e.target.value)}
+                className="filter-input"
+              />
+              <input
+                type="text"
+                placeholder="Search by Title or Description"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="filter-input"
+              />
+              <button
+                onClick={handleFilter}
+                className="filter-button bg-blue-500 text-white px-4 py-2 rounded"
+              >
+                Apply Filters
+              </button>
             </div>
-          ))
-        )}
-      </div>
+          </div>
+
+          {/* Product Grid */}
+          <div className="product-grid">
+            {filteredProducts.length === 0 ? (
+              <p>No products match the filter criteria.</p>
+            ) : (
+              filteredProducts.map((product) => (
+                <div key={product._id} className="product-item">
+                  <img
+                    src={product.image}
+                    alt={product.title}
+                    className="product-img"
+                  />
+                  <h3>{product.title}</h3>
+                  <p>{product.description}</p>
+                  <p className="price">{product.amount}€</p>
+                </div>
+              ))
+            )}
+          </div>
+        </>
+      )}
     </div>
   );
 }

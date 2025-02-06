@@ -30,18 +30,21 @@ export function Supermarket() {
   const handleFilter = () => {
     let filtered = products;
 
+    // Apply minimum price filter (ensure the minimum price is a valid value)
     if (minPrice) {
       filtered = filtered.filter(
         (product) => parseFloat(product.amount) >= parseFloat(minPrice)
       );
     }
 
+    // Apply maximum price filter (ensure the maximum price is a valid value)
     if (maxPrice) {
       filtered = filtered.filter(
         (product) => parseFloat(product.amount) <= parseFloat(maxPrice)
       );
     }
 
+    // Apply search filter (search by title or description)
     if (searchTerm.trim()) {
       const lowerCaseTerm = searchTerm.toLowerCase();
       filtered = filtered.filter(
@@ -129,10 +132,11 @@ export function Supermarket() {
             <div className="filter-controls">
               <input
                 type="number"
-                placeholder="Min Price"
+                placeholder="Min Price (>= 1)"
                 value={minPrice}
                 onChange={(e) => setMinPrice(e.target.value)}
                 className="filter-input"
+                min="1"
               />
               <input
                 type="number"
