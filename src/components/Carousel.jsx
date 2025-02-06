@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import pharmacy from "../assets/pharmacy.png";
-import restaurant from "../assets/restaurant.jpg";
+import restaurant from "../assets/restaurant.png";
 import supermarket from "../assets/supermarket.png";
 import { AuthContext } from "../context/auth.context";
 

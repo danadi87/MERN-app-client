@@ -15,6 +15,7 @@ h1 {
   justify-content: center;
   gap: 30px;
   margin-top: 20px;
+  flex-wrap: wrap; /* Ensure logos wrap if needed on smaller screens */
 }
 
 .logo-grid img {
@@ -27,10 +28,53 @@ h1 {
 }
 
 .logo-grid img:hover {
-  transform: scale(1.1);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  transform: scale(1.2); /* Make the logo 20% bigger when hovered */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); /* More pronounced box shadow */
+  transition: transform 0.3s ease, box-shadow 0.3s ease-in-out;
 }
 
+.logo-text {
+  font-size: 1rem;
+  color: #555;
+  margin-top: 8px;
+  font-weight: normal;
+}
+
+.logo-grid img:hover + .logo-text {
+  font-weight: bold; /* Make text bold when hovered */
+  color: #28a745; /* Change text color to highlight when hovered */
+}
+
+/* New content section under the logos */
+.brand-content {
+  font-size: 1.1rem;
+  color: #555;
+  background-color: #f9f9f9;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+  display: inline-block;
+  text-align: left;
+  width: 100%;
+  max-width: 600px;
+  margin-top: 20px;
+}
+
+.brand-content p {
+  margin-bottom: 10px;
+}
+
+.brand-content ul {
+  list-style-type: disc;
+  padding-left: 20px;
+}
+
+.brand-content li {
+  margin-bottom: 8px;
+}
+
+/* Product grid */
 .product-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
