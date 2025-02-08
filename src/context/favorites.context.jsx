@@ -1,5 +1,6 @@
-import React, { createContext, useState, useEffect } from "react";
+import React, { createContext, useState, useEffect, useContext } from "react";
 import axios from "axios";
+import { AuthContext } from "./auth.context";
 
 const FavoritesContext = createContext();
 
@@ -7,11 +8,16 @@ const API_URL = "http://localhost:5005";
 
 export const FavoritesProviderWrapper = ({ children }) => {
   const [favorites, setFavorites] = useState([]);
+  const { storedToken } = useContext(AuthContext);
 
   const addFavorite = (product) => {
-    if (!favorites.some((fav) => fav.id === product.id)) {
+    if (storedToken) {
       axios
-        .post(`${API_URL}/auth/favorites`, product)
+        .post(`${API_URL}/auth/favorites`, product, {
+          headers: {
+            Authorization: `Bearer ${storedToken}`,
+          },
+        })
         .then((response) => {
           setFavorites((prevFavorites) => [...prevFavorites, response.data]);
         })
@@ -20,24 +26,32 @@ export const FavoritesProviderWrapper = ({ children }) => {
   };
 
   const removeFavorite = (productId) => {
-    axios
-      .delete(`${API_URL}/auth/favorites/${productId}`)
-      .then((response) => {
-        console.log(response.data);
-        const newFavorites = favorites.filter(
-          (product) => product.id !== productId
-        );
-        setFavorites(newFavorites);
-      })
-      .catch((error) => console.log(error));
+    if (storedToken) {
+      axios
+        .delete(`${API_URL}/auth/favorites/${productId}`, {
+          headers: {
+            Authorization: `Bearer ${storedToken}`,
+          },
+        })
+        .then((response) => {
+          console.log(response.data);
+          const newFavorites = favorites.filter((product) => {
+            if (productId != product.id) return true;
+          });
+          setFavorites(newFavorites);
+        })
+        .catch((error) => console.log(error));
+    }
   };
 
   useEffect(() => {
-    axios
-      .get(`${API_URL}/auth/favorites`)
-      .then((response) => setFavorites(response.data))
-      .catch((error) => console.log(error));
-  }, []);
+    if (storedToken) {
+      axios
+        .get(`${API_URL}/auth/favorites`)
+        .then((response) => setFavorites(response.data))
+        .catch((error) => console.log(error));
+    }
+  }, [storedToken]);
 
   return (
     <FavoritesContext.Provider

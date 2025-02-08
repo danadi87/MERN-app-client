@@ -10,13 +10,13 @@ import { ShoppingCartProviderWrapper } from "./context/shoppingCart.context.jsx"
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <Router>
-      <ShoppingCartProviderWrapper>
-        <FavoritesProviderWrapper>
-          <AuthProviderWrapper>
+      <AuthProviderWrapper>
+        <ShoppingCartProviderWrapper>
+          <FavoritesProviderWrapper>
             <App />
-          </AuthProviderWrapper>
-        </FavoritesProviderWrapper>
-      </ShoppingCartProviderWrapper>
+          </FavoritesProviderWrapper>
+        </ShoppingCartProviderWrapper>
+      </AuthProviderWrapper>
     </Router>
   </StrictMode>
 );
