@@ -57,7 +57,7 @@ export const ShoppingCartProviderWrapper = ({ children }) => {
           },
         })
         .then(() => {
-          const newCart = cart.filter((product) => productId != product.id);
+          const newCart = cart.filter((product) => productId !== product.id);
           setCart(newCart);
           localStorage.setItem("cart", JSON.stringify(newCart));
         })
