@@ -1,9 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import axios from "axios";
 import "../styles/Restaurant.css";
 import mcdonaldsLogo from "../assets/mcdonalds.png";
 import burgerKingLogo from "../assets/burgerKing.png";
 import telepizzaLogo from "../assets/telepizza.png";
+import heartIcon from "../assets/heart.png";
+import FavoritesContext from "../context/favorites.context";
 
 export function Restaurant() {
   const [products, setProducts] = useState([]);
@@ -14,9 +16,11 @@ export function Restaurant() {
   const [searchTerm, setSearchTerm] = useState("");
   const [showProducts, setShowProducts] = useState(false);
 
+  const { addFavorite } = useContext(FavoritesContext);
+
   const handleBrandClick = (brand) => {
     console.log("Brand clicked, fetching products...");
-    setShowContent(false); // Hide the content when a brand is clicked
+    setShowContent(false);
     axios
       .get(
         `http://localhost:5005/api/products?category=Restaurant&brand=${brand}`
@@ -24,15 +28,14 @@ export function Restaurant() {
       .then((response) => {
         console.log("Products received from API: ", response.data);
         setProducts(response.data);
-        setFilteredProducts(response.data); // Initialize filtered products with all products
-        setShowProducts(true); // Show the product grid
+        setFilteredProducts(response.data);
+        setShowProducts(true);
       })
       .catch((error) => {
         console.error("Error fetching restaurant products:", error);
       });
   };
 
-  // Filter function for price and search term
   const handleFilter = () => {
     let filtered = products;
 
@@ -88,7 +91,6 @@ export function Restaurant() {
         </div>
       </div>
 
-      {/* Content under logos */}
       {showContent && (
         <div className="brand-content text-center mb-8">
           <p className="text-lg">
@@ -115,7 +117,7 @@ export function Restaurant() {
         </div>
       )}
 
-      {/* Filter Form */}
+      {/* Filtros */}
       {showProducts && (
         <>
           <div className="filter-form">
@@ -151,7 +153,6 @@ export function Restaurant() {
             </div>
           </div>
 
-          {/* Product Grid */}
           <div className="product-grid">
             {filteredProducts.length === 0 ? (
               <p>No products match the filter criteria.</p>
@@ -166,6 +167,19 @@ export function Restaurant() {
                   <h3>{product.title}</h3>
                   <p>{product.description}</p>
                   <p className="price">{product.amount}€</p>
+                  <div className="favorite-button-container">
+                    {/* Boton de Favoritos */}
+                    <button
+                      onClick={() => addFavorite(product)}
+                      className="favorite-button"
+                    >
+                      <img
+                        src={heartIcon}
+                        alt="Add to favorites"
+                        className="favorite-icon"
+                      />
+                    </button>
+                  </div>
                 </div>
               ))
             )}
