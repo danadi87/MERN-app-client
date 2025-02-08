@@ -11,6 +11,25 @@ export const FavoritesProviderWrapper = ({ children }) => {
   const storedToken = localStorage.getItem("authToken");
   const navigate = useNavigate();
 
+  useEffect(() => {
+    const storedFavorites = localStorage.getItem("favorites");
+    if (storedFavorites) {
+      setFavorites(JSON.parse(storedFavorites));
+    } else if (storedToken) {
+      axios
+        .get(`${API_URL}/auth/favorites`, {
+          headers: {
+            Authorization: `Bearer ${storedToken}`,
+          },
+        })
+        .then((response) => {
+          setFavorites(response.data);
+          localStorage.setItem("favorites", JSON.stringify(response.data));
+        })
+        .catch((error) => console.log(error));
+    }
+  }, [storedToken]);
+
   const addFavorite = (product) => {
     if (storedToken) {
       axios
@@ -20,7 +39,9 @@ export const FavoritesProviderWrapper = ({ children }) => {
           },
         })
         .then((response) => {
-          setFavorites((prevFavorites) => [...prevFavorites, response.data]);
+          const updatedFavorites = [...favorites, response.data];
+          setFavorites(updatedFavorites);
+          localStorage.setItem("favorites", JSON.stringify(updatedFavorites));
           navigate("/favorites");
         })
         .catch((error) => console.log(error));
@@ -35,25 +56,16 @@ export const FavoritesProviderWrapper = ({ children }) => {
             Authorization: `Bearer ${storedToken}`,
           },
         })
-        .then((response) => {
-          console.log(response.data);
-          const newFavorites = favorites.filter((product) => {
-            if (productId != product.id) return true;
-          });
+        .then(() => {
+          const newFavorites = favorites.filter(
+            (product) => productId != product.id
+          );
           setFavorites(newFavorites);
+          localStorage.setItem("favorites", JSON.stringify(newFavorites));
         })
         .catch((error) => console.log(error));
     }
   };
-
-  useEffect(() => {
-    if (storedToken) {
-      axios
-        .get(`${API_URL}/auth/favorites`)
-        .then((response) => setFavorites(response.data))
-        .catch((error) => console.log(error));
-    }
-  }, [storedToken]);
 
   return (
     <FavoritesContext.Provider
