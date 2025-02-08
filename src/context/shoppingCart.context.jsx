@@ -11,6 +11,25 @@ export const ShoppingCartProviderWrapper = ({ children }) => {
   const storedToken = localStorage.getItem("authToken");
   const navigate = useNavigate();
 
+  useEffect(() => {
+    const storedCart = localStorage.getItem("cart");
+    if (storedCart) {
+      setCart(JSON.parse(storedCart));
+    } else if (storedToken) {
+      axios
+        .get(`${API_URL}/auth/cart`, {
+          headers: {
+            Authorization: `Bearer ${storedToken}`,
+          },
+        })
+        .then((response) => {
+          setCart(response.data);
+          localStorage.setItem("cart", JSON.stringify(response.data));
+        })
+        .catch((error) => console.log(error));
+    }
+  }, [storedToken]);
+
   const addToCart = (product) => {
     if (storedToken) {
       axios
@@ -20,7 +39,10 @@ export const ShoppingCartProviderWrapper = ({ children }) => {
           },
         })
         .then((response) => {
-          setCart((prevCart) => [...prevCart, response.data]);
+          const updatedCart = [...cart, response.data];
+          setCart(updatedCart);
+          localStorage.setItem("cart", JSON.stringify(updatedCart));
+          navigate("/cart");
         })
         .catch((error) => console.log(error));
     }
@@ -34,25 +56,14 @@ export const ShoppingCartProviderWrapper = ({ children }) => {
             Authorization: `Bearer ${storedToken}`,
           },
         })
-        .then((response) => {
-          console.log(response.data);
-          const newCart = cart.filter((product) => {
-            if (productId != product.id) return true;
-          });
+        .then(() => {
+          const newCart = cart.filter((product) => productId != product.id);
           setCart(newCart);
+          localStorage.setItem("cart", JSON.stringify(newCart));
         })
         .catch((error) => console.log(error));
     }
   };
-
-  useEffect(() => {
-    if (storedToken) {
-      axios
-        .get(`${API_URL}/auth/cart`)
-        .then((response) => setCart(response.data))
-        .catch((error) => console.log(error));
-    }
-  }, []);
 
   return (
     <ShoppingCartContext.Provider value={{ cart, addToCart, removeCart }}>
