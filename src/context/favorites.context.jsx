@@ -10,7 +10,7 @@ export const FavoritesProviderWrapper = ({ children }) => {
 
   const addFavorite = (product) => {
     axios
-      .post(`${API_URL}/favorites`, product)
+      .post(`${API_URL}/auth/favorites`, product)
       .then((response) => {
         setFavorites((prevFavorites) => [...prevFavorites, response.data]);
       })
@@ -19,7 +19,7 @@ export const FavoritesProviderWrapper = ({ children }) => {
 
   const removeFavorite = (productId) => {
     axios
-      .delete(`${API_URL}/favorites/${productId}`)
+      .delete(`${API_URL}/auth/favorites/${productId}`)
       .then((response) => {
         console.log(response.data);
         const newFavorites = favorites.filter((product) => {
@@ -32,7 +32,7 @@ export const FavoritesProviderWrapper = ({ children }) => {
 
   useEffect(() => {
     axios
-      .get(`${API_URL}/favorites`)
+      .get(`${API_URL}/auth/favorites`)
       .then((response) => setFavorites(response.data))
       .catch((error) => console.log(error));
   }, []);

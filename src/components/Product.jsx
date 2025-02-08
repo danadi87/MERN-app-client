@@ -23,7 +23,7 @@ export function Product() {
 
   const getProduct = () => {
     axios
-      .get(`${API_URL}/products/${id}`)
+      .get(`${API_URL}/api/products/${id}`)
       .then((response) => {
         console.log(response.data);
         setProduct(response.data);

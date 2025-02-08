@@ -1,5 +1,6 @@
-import React, { createContext, useState, useEffect } from "react";
+import React, { createContext, useState, useEffect, useContext } from "react";
 import axios from "axios";
+import { AuthContext } from "./auth.context";
 
 const ShoppingCartContext = createContext();
 
@@ -10,7 +11,7 @@ export const ShoppingCartProviderWrapper = ({ children }) => {
 
   const addToCart = (product) => {
     axios
-      .post(`${API_URL}/cart`, product)
+      .post(`${API_URL}/auth/cart`, product)
       .then((response) => {
         setCart((prevCart) => [...prevCart, response.data]);
       })
@@ -19,7 +20,7 @@ export const ShoppingCartProviderWrapper = ({ children }) => {
 
   const removeCart = (productId) => {
     axios
-      .delete(`${API_URL}/cart/${productId}`)
+      .delete(`${API_URL}/auth/cart/${productId}`)
       .then((response) => {
         console.log(response.data);
         const newCart = cart.filter((product) => {
@@ -32,7 +33,7 @@ export const ShoppingCartProviderWrapper = ({ children }) => {
 
   useEffect(() => {
     axios
-      .get(`${API_URL}/cart`)
+      .get(`${API_URL}/auth/cart`)
       .then((response) => setCart(response.data))
       .catch((error) => console.log(error));
   }, []);
