@@ -1,9 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import axios from "axios";
 import "../styles/Supermarket.css";
 import mercadonaLogo from "../assets/mercadona.png";
 import lidlLogo from "../assets/lidl.png";
 import carrefourLogo from "../assets/carrefour.png";
+import heartIcon from "../assets/heart.png";
+import ShoppingCartContext from "../context/shoppingCart.context";
+import FavoritesContext from "../context/favorites.context";
+import { useNavigate } from "react-router-dom";
 
 export function Supermarket() {
   const [products, setProducts] = useState([]);
@@ -13,6 +17,9 @@ export function Supermarket() {
   const [maxPrice, setMaxPrice] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
   const [showContent, setShowContent] = useState(true); // State to toggle content visibility
+  const { addToCart } = useContext(ShoppingCartContext);
+  const { addFavorite } = useContext(FavoritesContext);
+  const navigate = useNavigate();
 
   const fetchSupermarketProducts = () => {
     axios
@@ -30,21 +37,18 @@ export function Supermarket() {
   const handleFilter = () => {
     let filtered = products;
 
-    // Apply minimum price filter (ensure the minimum price is a valid value)
     if (minPrice) {
       filtered = filtered.filter(
         (product) => parseFloat(product.amount) >= parseFloat(minPrice)
       );
     }
 
-    // Apply maximum price filter (ensure the maximum price is a valid value)
     if (maxPrice) {
       filtered = filtered.filter(
         (product) => parseFloat(product.amount) <= parseFloat(maxPrice)
       );
     }
 
-    // Apply search filter (search by title or description)
     if (searchTerm.trim()) {
       const lowerCaseTerm = searchTerm.toLowerCase();
       filtered = filtered.filter(
@@ -57,13 +61,21 @@ export function Supermarket() {
     setFilteredProducts(filtered);
   };
 
+  const handleAddToCart = (product) => {
+    addToCart(product);
+    navigate("/cart");
+  };
+
+  const handleDelete = (product) => {
+    console.log("Deleted product:", product);
+  };
+
   return (
     <div className="supermarket-container">
       <h2 className="text-3xl font-bold text-center mb-8">
         Supermarket Brands
       </h2>
 
-      {/* Logo Grid with Text */}
       <div className="logo-grid mb-8">
         <div
           className="logo-item"
@@ -97,36 +109,17 @@ export function Supermarket() {
         </div>
       </div>
 
-      {/* Content under the logos */}
       {showContent && (
         <div className="brand-content text-center mb-8">
           <p className="text-lg">
             Choose your preferred supermarket brand, find everything from
             groceries to household items here at AllInOneClick!
           </p>
-          <p className="mt-4 text-md">
-            We offer the best products from top supermarket chains:
-          </p>
-          <ul className="list-disc mt-4 text-sm">
-            <li>
-              <strong>Mercadona:</strong> The leading supermarket in Spain with
-              a wide range of fresh and packaged goods.
-            </li>
-            <li>
-              <strong>Lidl:</strong> Affordable supermarket with high-quality
-              products, offering everything you need.
-            </li>
-            <li>
-              <strong>Carrefour:</strong> A trusted name in supermarkets,
-              offering a wide selection of food and non-food items.
-            </li>
-          </ul>
         </div>
       )}
 
       {showProducts && (
         <>
-          {/* Filter Form */}
           <div className="filter-form">
             <h2 className="text-xl font-bold mt-8 mb-4">Filter Products</h2>
             <div className="filter-controls">
@@ -161,7 +154,6 @@ export function Supermarket() {
             </div>
           </div>
 
-          {/* Product Grid */}
           <div className="product-grid">
             {filteredProducts.length === 0 ? (
               <p>No products match the filter criteria.</p>
@@ -176,6 +168,30 @@ export function Supermarket() {
                   <h3>{product.title}</h3>
                   <p>{product.description}</p>
                   <p className="price">{product.amount}€</p>
+                  <div className="button-container">
+                    <button
+                      onClick={() => addFavorite(product)}
+                      className="favorite-button"
+                    >
+                      <img
+                        src={heartIcon}
+                        alt="Add to favorites"
+                        className="favorite-icon"
+                      />
+                    </button>
+                    <button
+                      onClick={() => handleAddToCart(product)}
+                      className="cart-button"
+                    >
+                      🛒
+                    </button>
+                    <button
+                      onClick={() => handleDelete(product)}
+                      className="delete-button"
+                    >
+                      ❌
+                    </button>
+                  </div>
                 </div>
               ))
             )}

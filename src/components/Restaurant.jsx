@@ -6,6 +6,8 @@ import burgerKingLogo from "../assets/burgerKing.png";
 import telepizzaLogo from "../assets/telepizza.png";
 import heartIcon from "../assets/heart.png";
 import FavoritesContext from "../context/favorites.context";
+import ShoppingCartContext from "../context/shoppingCart.context";
+import { useNavigate } from "react-router-dom"; // Import useNavigate for navigation
 
 export function Restaurant() {
   const [products, setProducts] = useState([]);
@@ -17,6 +19,8 @@ export function Restaurant() {
   const [showProducts, setShowProducts] = useState(false);
 
   const { addFavorite } = useContext(FavoritesContext);
+  const { addToCart } = useContext(ShoppingCartContext);
+  const navigate = useNavigate(); // Hook for navigation
 
   const handleBrandClick = (brand) => {
     console.log("Brand clicked, fetching products...");
@@ -61,6 +65,16 @@ export function Restaurant() {
     }
 
     setFilteredProducts(filtered);
+  };
+
+  const handleDelete = (product) => {
+    // Your delete logic here (e.g., remove from state, call an API)
+    console.log("Deleted product:", product);
+  };
+
+  // Handle redirection to the shopping cart
+  const handleGoToCart = () => {
+    navigate("/cart");
   };
 
   return (
@@ -167,7 +181,7 @@ export function Restaurant() {
                   <h3>{product.title}</h3>
                   <p>{product.description}</p>
                   <p className="price">{product.amount}€</p>
-                  <div className="favorite-button-container">
+                  <div className="button-container">
                     {/* Boton de Favoritos */}
                     <button
                       onClick={() => addFavorite(product)}
@@ -179,6 +193,20 @@ export function Restaurant() {
                         className="favorite-icon"
                       />
                     </button>
+
+                    <button
+                      onClick={() => addToCart(product)}
+                      className="cart-button"
+                    >
+                      🛒
+                    </button>
+
+                    <button
+                      onClick={() => handleDelete(product)}
+                      className="delete-button"
+                    >
+                      ❌
+                    </button>
                   </div>
                 </div>
               ))
@@ -186,6 +214,15 @@ export function Restaurant() {
           </div>
         </>
       )}
+
+      <div className="go-to-cart-container text-center mt-8">
+        <button
+          onClick={handleGoToCart}
+          className="go-to-cart-button bg-green-500 text-white px-6 py-2 rounded"
+        >
+          Go to Cart
+        </button>
+      </div>
     </div>
   );
 }

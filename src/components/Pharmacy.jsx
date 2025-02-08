@@ -1,9 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import axios from "axios";
 import "../styles/Pharmacy.css";
 import cruzVerdeLogo from "../assets/cruzVerde.png";
 import farmaciaAlfaLogo from "../assets/farmaciaAlfa.png";
 import sanitasLogo from "../assets/sanitas.png";
+import heartIcon from "../assets/heart.png";
+import ShoppingCartContext from "../context/shoppingCart.context";
+import FavoritesContext from "../context/favorites.context";
+import { useNavigate } from "react-router-dom";
 
 export function Pharmacy() {
   const [products, setProducts] = useState([]);
@@ -13,6 +17,9 @@ export function Pharmacy() {
   const [maxPrice, setMaxPrice] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
   const [showContent, setShowContent] = useState(true); // State to toggle content visibility
+  const { addToCart } = useContext(ShoppingCartContext);
+  const { addFavorite } = useContext(FavoritesContext);
+  const navigate = useNavigate();
 
   const fetchPharmacyProducts = () => {
     axios
@@ -54,11 +61,19 @@ export function Pharmacy() {
     setFilteredProducts(filtered);
   };
 
+  const handleAddToCart = (product) => {
+    addToCart(product);
+    navigate("/cart");
+  };
+
+  const handleDelete = (product) => {
+    console.log("Deleted product:", product);
+  };
+
   return (
     <div className="container">
       <h1 className="text-3xl font-bold text-center mb-8">Pharmacy Brands</h1>
 
-      {/* Logo Grid with Text */}
       <div className="logo-grid">
         <div
           className="logo-item"
@@ -92,36 +107,17 @@ export function Pharmacy() {
         </div>
       </div>
 
-      {/* Content under the logos */}
       {showContent && (
         <div className="brand-content text-center mb-8">
           <p className="text-lg">
             Choose your preferred pharmacy brand, find all your essential
             products here at AllInOneClick!
           </p>
-          <p className="mt-4 text-md">
-            We offer a wide range of pharmacy products from trusted brands:
-          </p>
-          <ul className="list-disc mt-4 text-sm">
-            <li>
-              <strong>Cruz Verde:</strong> A reliable pharmacy offering
-              healthcare products, cosmetics, and more.
-            </li>
-            <li>
-              <strong>Farmacia Alfa:</strong> Your trusted pharmacy for
-              medication, vitamins, and wellness products.
-            </li>
-            <li>
-              <strong>Sanitas:</strong> A pharmacy committed to your health with
-              high-quality medications and products.
-            </li>
-          </ul>
         </div>
       )}
 
       {showProducts && (
         <>
-          {/* Filter Form */}
           <div className="filter-form">
             <h2 className="text-xl font-bold mt-8 mb-4">Filter Products</h2>
             <div className="filter-controls">
@@ -155,17 +151,44 @@ export function Pharmacy() {
             </div>
           </div>
 
-          {/* Product Grid */}
           <div className="product-grid">
             {filteredProducts.length === 0 ? (
               <p>No products match the filter criteria.</p>
             ) : (
               filteredProducts.map((product) => (
                 <div key={product._id} className="product-item">
-                  <img src={product.image} alt={product.title} />
+                  <img
+                    src={product.image}
+                    alt={product.title}
+                    className="product-img"
+                  />
                   <h3>{product.title}</h3>
                   <p>{product.description}</p>
                   <p className="price">{product.amount}€</p>
+                  <div className="button-container">
+                    <button
+                      onClick={() => addFavorite(product)}
+                      className="favorite-button"
+                    >
+                      <img
+                        src={heartIcon}
+                        alt="Add to favorites"
+                        className="favorite-icon"
+                      />
+                    </button>
+                    <button
+                      onClick={() => handleAddToCart(product)}
+                      className="cart-button"
+                    >
+                      🛒
+                    </button>
+                    <button
+                      onClick={() => handleDelete(product)}
+                      className="delete-button"
+                    >
+                      ❌
+                    </button>
+                  </div>
                 </div>
               ))
             )}
