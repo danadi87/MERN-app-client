@@ -58,7 +58,7 @@ export const FavoritesProviderWrapper = ({ children }) => {
         })
         .then(() => {
           const newFavorites = favorites.filter(
-            (product) => productId != product.id
+            (product) => productId !== product.id
           );
           setFavorites(newFavorites);
           localStorage.setItem("favorites", JSON.stringify(newFavorites));
