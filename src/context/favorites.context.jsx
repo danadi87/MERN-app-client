@@ -1,6 +1,6 @@
-import React, { createContext, useState, useEffect, useContext } from "react";
+import React, { createContext, useState, useEffect } from "react";
 import axios from "axios";
-import { AuthContext } from "./auth.context";
+import { useNavigate } from "react-router-dom";
 
 const FavoritesContext = createContext();
 
@@ -8,7 +8,8 @@ const API_URL = "http://localhost:5005";
 
 export const FavoritesProviderWrapper = ({ children }) => {
   const [favorites, setFavorites] = useState([]);
-  const { storedToken } = useContext(AuthContext);
+  const storedToken = localStorage.getItem("authToken");
+  const navigate = useNavigate();
 
   const addFavorite = (product) => {
     if (storedToken) {
@@ -20,6 +21,7 @@ export const FavoritesProviderWrapper = ({ children }) => {
         })
         .then((response) => {
           setFavorites((prevFavorites) => [...prevFavorites, response.data]);
+          navigate("/favorites");
         })
         .catch((error) => console.log(error));
     }
