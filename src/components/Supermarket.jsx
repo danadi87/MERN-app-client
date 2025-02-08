@@ -70,6 +70,10 @@ export function Supermarket() {
     console.log("Deleted product:", product);
   };
 
+  const handleProductClick = (productId) => {
+    navigate(`/product-details/${productId}`);
+  };
+
   return (
     <div className="supermarket-container">
       <h2 className="text-3xl font-bold text-center mb-8">
@@ -77,6 +81,7 @@ export function Supermarket() {
       </h2>
 
       <div className="logo-grid mb-8">
+        {/* Brand Logos for supermarket */}
         <div
           className="logo-item"
           onClick={() => {
@@ -121,6 +126,7 @@ export function Supermarket() {
       {showProducts && (
         <>
           <div className="filter-form">
+            {/* Filter products form */}
             <h2 className="text-xl font-bold mt-8 mb-4">Filter Products</h2>
             <div className="filter-controls">
               <input
@@ -164,6 +170,7 @@ export function Supermarket() {
                     src={product.image}
                     alt={product.title}
                     className="product-img"
+                    onClick={() => handleProductClick(product._id)}
                   />
                   <h3>{product.title}</h3>
                   <p>{product.description}</p>

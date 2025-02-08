@@ -16,7 +16,7 @@ export function Pharmacy() {
   const [minPrice, setMinPrice] = useState("");
   const [maxPrice, setMaxPrice] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
-  const [showContent, setShowContent] = useState(true); // State to toggle content visibility
+  const [showContent, setShowContent] = useState(true);
   const { addToCart } = useContext(ShoppingCartContext);
   const { addFavorite } = useContext(FavoritesContext);
   const navigate = useNavigate();
@@ -25,13 +25,14 @@ export function Pharmacy() {
     axios
       .get("http://localhost:5005/api/products?category=Pharmacy")
       .then((response) => {
+        console.log("Products fetched:", response.data);
         setProducts(response.data);
         setFilteredProducts(response.data);
         setShowProducts(true);
       })
-      .catch((error) =>
-        console.error("Error fetching pharmacy products:", error)
-      );
+      .catch((error) => {
+        console.error("Error fetching pharmacy products:", error);
+      });
   };
 
   const handleFilter = () => {
@@ -58,16 +59,23 @@ export function Pharmacy() {
       );
     }
 
+    console.log("Filtered products:", filtered);
     setFilteredProducts(filtered);
   };
 
   const handleAddToCart = (product) => {
     addToCart(product);
+    console.log("Added to cart:", product);
     navigate("/cart");
   };
 
   const handleDelete = (product) => {
     console.log("Deleted product:", product);
+  };
+
+  const handleProductClick = (productId) => {
+    console.log("Product clicked, navigating to:", productId);
+    navigate(`/product-details/${productId}`);
   };
 
   return (
@@ -156,7 +164,11 @@ export function Pharmacy() {
               <p>No products match the filter criteria.</p>
             ) : (
               filteredProducts.map((product) => (
-                <div key={product._id} className="product-item">
+                <div
+                  key={product._id}
+                  className="product-item"
+                  onClick={() => handleProductClick(product._id)}
+                >
                   <img
                     src={product.image}
                     alt={product.title}

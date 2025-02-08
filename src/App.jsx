@@ -16,6 +16,7 @@ import { Restaurant } from "./components/Restaurant";
 import { Product } from "./components/Product";
 import IsPrivate from "./components/IsPrivate";
 import { Payment } from "./components/Payment";
+import { ProductDetails } from "./components/ProductDetails";
 
 import "./App.css";
 import IsAnon from "./components/IsAnon";
@@ -91,7 +92,7 @@ export default function App() {
             }
           />
           <Route
-            path="payment"
+            path="/payment"
             element={
               <IsPrivate>
                 <Payment />
@@ -105,6 +106,10 @@ export default function App() {
           <Route path="/aboutus" element={<Aboutus />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/addproduct" element={<AddProduct />} />
+          <Route
+            path="/product-details/:productId"
+            element={<ProductDetails />}
+          />{" "}
         </Routes>
       </div>
       <Footer />

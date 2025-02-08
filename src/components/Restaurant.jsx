@@ -7,7 +7,7 @@ import telepizzaLogo from "../assets/telepizza.png";
 import heartIcon from "../assets/heart.png";
 import FavoritesContext from "../context/favorites.context";
 import ShoppingCartContext from "../context/shoppingCart.context";
-import { useNavigate } from "react-router-dom"; // Import useNavigate for navigation
+import { useNavigate } from "react-router-dom";
 
 export function Restaurant() {
   const [products, setProducts] = useState([]);
@@ -20,7 +20,7 @@ export function Restaurant() {
 
   const { addFavorite } = useContext(FavoritesContext);
   const { addToCart } = useContext(ShoppingCartContext);
-  const navigate = useNavigate(); // Hook for navigation
+  const navigate = useNavigate();
 
   const handleBrandClick = (brand) => {
     console.log("Brand clicked, fetching products...");
@@ -68,13 +68,15 @@ export function Restaurant() {
   };
 
   const handleDelete = (product) => {
-    // Your delete logic here (e.g., remove from state, call an API)
     console.log("Deleted product:", product);
   };
 
-  // Handle redirection to the shopping cart
   const handleGoToCart = () => {
     navigate("/cart");
+  };
+
+  const handleProductClick = (productId) => {
+    navigate(`/product-details/${productId}`);
   };
 
   return (
@@ -172,7 +174,11 @@ export function Restaurant() {
               <p>No products match the filter criteria.</p>
             ) : (
               filteredProducts.map((product) => (
-                <div key={product._id} className="product-item">
+                <div
+                  key={product._id}
+                  className="product-item"
+                  onClick={() => handleProductClick(product._id)}
+                >
                   <img
                     src={product.image}
                     alt={product.title}
@@ -184,7 +190,10 @@ export function Restaurant() {
                   <div className="button-container">
                     {/* Boton de Favoritos */}
                     <button
-                      onClick={() => addFavorite(product)}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        addFavorite(product);
+                      }}
                       className="favorite-button"
                     >
                       <img
@@ -195,14 +204,20 @@ export function Restaurant() {
                     </button>
 
                     <button
-                      onClick={() => addToCart(product)}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        addToCart(product);
+                      }}
                       className="cart-button"
                     >
                       🛒
                     </button>
 
                     <button
-                      onClick={() => handleDelete(product)}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleDelete(product);
+                      }}
                       className="delete-button"
                     >
                       ❌
