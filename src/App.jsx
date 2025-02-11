@@ -17,7 +17,7 @@ import { Product } from "./components/Product";
 import IsPrivate from "./components/IsPrivate";
 import { Payment } from "./components/Payment";
 import { ProductDetails } from "./components/ProductDetails";
-
+import { NotFound } from "./components/NotFound";
 import "./App.css";
 import IsAnon from "./components/IsAnon";
 import { AddProduct } from "./components/AddProduct";
@@ -99,6 +99,7 @@ export default function App() {
               </IsPrivate>
             }
           />
+          <Route path="*" element={<NotFound />} />
           <Route path="/pharmacy" element={<Pharmacy />} />
           <Route path="/supermarket" element={<Supermarket />} />
           <Route path="/restaurant" element={<Restaurant />} />
