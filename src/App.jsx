@@ -17,8 +17,12 @@ import { Product } from "./components/Product";
 import IsPrivate from "./components/IsPrivate";
 import { Payment } from "./components/Payment";
 import { ProductDetails } from "./components/ProductDetails";
+<<<<<<< HEAD
 import { DeleteProviderWrapper } from "./context/delete.context";
 
+=======
+import { NotFound } from "./components/NotFound";
+>>>>>>> 8e30199a65da0e995d63419b5b45614bc5c637bb
 import "./App.css";
 import IsAnon from "./components/IsAnon";
 import { AddProduct } from "./components/AddProduct";
@@ -34,6 +38,7 @@ export default function App() {
     <div className="flex flex-col min-h-screen">
       <Navbar />
       <div className="flex-grow">
+<<<<<<< HEAD
         <DeleteProviderWrapper>
           {" "}
           <Routes>
@@ -115,6 +120,87 @@ export default function App() {
             />
           </Routes>
         </DeleteProviderWrapper>{" "}
+=======
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <>
+                <Carousel />
+                <Content />
+              </>
+            }
+          />
+          <Route
+            path="/signup"
+            element={
+              <IsAnon>
+                <Signup />
+              </IsAnon>
+            }
+          />
+          <Route
+            path="/login"
+            element={
+              <IsAnon>
+                <Login />
+              </IsAnon>
+            }
+          />
+          <Route
+            path="/profile"
+            element={
+              <IsPrivate>
+                <Profile />
+              </IsPrivate>
+            }
+          />
+          <Route
+            path="/favorites"
+            element={
+              <IsPrivate>
+                <Favorites />
+              </IsPrivate>
+            }
+          />
+          <Route
+            path="/cart"
+            element={
+              <IsPrivate>
+                <ShoppingCart />
+              </IsPrivate>
+            }
+          />
+          <Route
+            path="/add-product"
+            element={
+              <IsPrivate>
+                <AddProduct />
+              </IsPrivate>
+            }
+          />
+          <Route
+            path="/payment"
+            element={
+              <IsPrivate>
+                <Payment />
+              </IsPrivate>
+            }
+          />
+          <Route path="*" element={<NotFound />} />
+          <Route path="/pharmacy" element={<Pharmacy />} />
+          <Route path="/supermarket" element={<Supermarket />} />
+          <Route path="/restaurant" element={<Restaurant />} />
+          <Route path="/product" element={<Product />} />
+          <Route path="/aboutus" element={<Aboutus />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/addproduct" element={<AddProduct />} />
+          <Route
+            path="/product-details/:productId"
+            element={<ProductDetails />}
+          />{" "}
+        </Routes>
+>>>>>>> 8e30199a65da0e995d63419b5b45614bc5c637bb
       </div>
       <Footer />
     </div>
