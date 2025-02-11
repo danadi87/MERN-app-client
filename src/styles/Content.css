@@ -1,6 +1,6 @@
 .content-wrapper {
   padding: 40px 20px;
-  background-color: #ffecd1; /* Light orange background */
+  background-color: #ffecd1;
 }
 
 .hero-section {
@@ -16,11 +16,11 @@
 }
 
 .text-section {
-  max-width: 800px; /* Limit text width for better readability */
+  max-width: 800px;
   margin: 0 auto;
   text-align: center;
   padding: 20px;
-  background-color: #ffecd1; /* Light orange background */
+  background-color: #ffecd1;
 }
 
 .section-title {

@@ -4,6 +4,7 @@ import pharmacy from "../assets/pharmacy.png";
 import restaurant from "../assets/restaurant.png";
 import supermarket from "../assets/supermarket.png";
 import { AuthContext } from "../context/auth.context";
+import "../styles/Carousel.css";
 
 export function Carousel() {
   const images = [
@@ -13,8 +14,8 @@ export function Carousel() {
   ];
 
   const navigate = useNavigate();
-  //const isLoggedIn = !!localStorage.getItem("userToken");
   const { isLoggedIn } = useContext(AuthContext);
+
   const handleImageClick = (path) => {
     if (isLoggedIn) {
       navigate(path);
@@ -37,7 +38,6 @@ export function Carousel() {
         </p>
       </div>
 
-      {/* Carousel images */}
       <div
         style={{
           display: "flex",
@@ -61,15 +61,9 @@ export function Carousel() {
               <img
                 src={image.src}
                 alt={`Carousel Image ${index + 1}`}
-                style={{
-                  width: "100%",
-                  height: "auto",
-                  objectFit: "cover",
-                  cursor: "pointer",
-                }}
+                className="carousel-image"
                 onClick={() => handleImageClick(image.path)}
               />
-
               <p style={{ textAlign: "center", color: "#555" }}>
                 Click in the IMAGE to choose the category
               </p>

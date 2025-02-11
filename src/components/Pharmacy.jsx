@@ -7,6 +7,7 @@ import sanitasLogo from "../assets/sanitas.png";
 import heartIcon from "../assets/heart.png";
 import ShoppingCartContext from "../context/shoppingCart.context";
 import FavoritesContext from "../context/favorites.context";
+import DeleteContext from "../context/delete.context";
 import { useNavigate } from "react-router-dom";
 
 export function Pharmacy() {
@@ -18,10 +19,12 @@ export function Pharmacy() {
   const [searchTerm, setSearchTerm] = useState("");
   const [showContent, setShowContent] = useState(true);
   const { addToCart } = useContext(ShoppingCartContext);
-  const { addFavorite } = useContext(FavoritesContext);
+  const { favorites, addFavorite } = useContext(FavoritesContext);
+  const { deleteProduct } = useContext(DeleteContext);
   const navigate = useNavigate();
 
   const fetchPharmacyProducts = () => {
+    console.log("Fetching pharmacy products...");
     axios
       .get("http://localhost:5005/api/products?category=Pharmacy")
       .then((response) => {
@@ -36,6 +39,7 @@ export function Pharmacy() {
   };
 
   const handleFilter = () => {
+    console.log("Filtering products...");
     let filtered = products;
 
     if (minPrice) {
@@ -64,13 +68,23 @@ export function Pharmacy() {
   };
 
   const handleAddToCart = (product) => {
+    console.log("Adding to cart:", product);
     addToCart(product);
-    console.log("Added to cart:", product);
     navigate("/cart");
   };
 
-  const handleDelete = (product) => {
-    console.log("Deleted product:", product);
+  const handleDelete = (e, product) => {
+    e.stopPropagation();
+    console.log("Deleting product:", product._id);
+    deleteProduct(product._id);
+
+    setFilteredProducts((prevProducts) =>
+      prevProducts.filter((p) => p._id !== product._id)
+    );
+    setProducts((prevProducts) =>
+      prevProducts.filter((p) => p._id !== product._id)
+    );
+    console.log("Updated filteredProducts:", filteredProducts);
   };
 
   const handleProductClick = (productId) => {
@@ -163,46 +177,62 @@ export function Pharmacy() {
             {filteredProducts.length === 0 ? (
               <p>No products match the filter criteria.</p>
             ) : (
-              filteredProducts.map((product) => (
-                <div
-                  key={product._id}
-                  className="product-item"
-                  onClick={() => handleProductClick(product._id)}
-                >
-                  <img
-                    src={product.image}
-                    alt={product.title}
-                    className="product-img"
-                  />
-                  <h3>{product.title}</h3>
-                  <p>{product.description}</p>
-                  <p className="price">{product.amount}€</p>
-                  <div className="button-container">
-                    <button
-                      onClick={() => addFavorite(product)}
-                      className="favorite-button"
-                    >
-                      <img
-                        src={heartIcon}
-                        alt="Add to favorites"
-                        className="favorite-icon"
-                      />
-                    </button>
-                    <button
-                      onClick={() => handleAddToCart(product)}
-                      className="cart-button"
-                    >
-                      🛒
-                    </button>
-                    <button
-                      onClick={() => handleDelete(product)}
-                      className="delete-button"
-                    >
-                      ❌
-                    </button>
+              filteredProducts.map((product) => {
+                const isFavorite = favorites.some(
+                  (fav) => fav._id === product._id
+                );
+                return (
+                  <div
+                    key={product._id}
+                    className="product-item"
+                    onClick={() => handleProductClick(product._id)}
+                  >
+                    <img
+                      src={product.image}
+                      alt={product.title}
+                      className="product-img"
+                    />
+                    <h3>{product.title}</h3>
+                    <p>{product.description}</p>
+                    <p className="price">{product.amount}€</p>
+                    <div className="button-container">
+                      <button
+                        onClick={() => addFavorite(product)}
+                        className="favorite-button"
+                      >
+                        {isFavorite ? (
+                          <img
+                            src={heartIcon}
+                            alt="Added to favorites"
+                            className="favorite-icon"
+                          />
+                        ) : (
+                          <img
+                            src={heartIcon}
+                            alt="Add to favorites"
+                            className="favorite-icon"
+                          />
+                        )}
+                      </button>
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleAddToCart(product);
+                        }}
+                        className="cart-button"
+                      >
+                        🛒
+                      </button>
+                      <button
+                        onClick={(e) => handleDelete(e, product)}
+                        className="delete-button"
+                      >
+                        ❌
+                      </button>
+                    </div>
                   </div>
-                </div>
-              ))
+                );
+              })
             )}
           </div>
         </>

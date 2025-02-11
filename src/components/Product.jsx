@@ -1,19 +1,20 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import axios from "axios";
-import { useEffect, useState, useContext } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import FavoritesContext from "../context/favorites.context";
 import ShoppingCartContext from "../context/shoppingCart.context";
+import DeleteContext from "../context/delete.context";
 import heartIcon from "../assets/heart.png";
 import cartIcon from "../assets/cart.png";
 
 export function Product() {
   const API_URL = "http://localhost:5005";
-
-  const [product, setProduct] = useState([]);
+  const [product, setProduct] = useState(null);
   const { id } = useParams();
   const { addFavorite } = useContext(FavoritesContext);
   const { addToCart } = useContext(ShoppingCartContext);
+  const { deleteProduct } = useContext(DeleteContext);
 
   useEffect(() => {
     if (id) {
@@ -25,39 +26,56 @@ export function Product() {
     axios
       .get(`${API_URL}/api/products/${id}`)
       .then((response) => {
-        console.log(response.data);
+        console.log("Fetched product:", response.data);
         setProduct(response.data);
       })
       .catch((error) => console.log(error));
   };
 
+  const handleDelete = () => {
+    if (product) {
+      console.log("Deleting product:", product);
+      deleteProduct(product._id);
+      setProduct(null);
+    }
+  };
+
   return (
     <>
-      <div className="product">
-        <img
-          src={product.image}
-          alt={product.title}
-          className="image-details"
-        />
-        <h1>{product.title}</h1>
-        <p>{product.description}</p>
-        <p>{product.category}</p>
-        <p>
-          <strong>{product.amount}€</strong>
-        </p>
-        <div className="buttons">
-          <Link to={`/favorites`}>
-            <button className="favorite" onClick={() => addFavorite(product)}>
-              <img src={heartIcon} className="heart" alt="favorite" />
+      {product ? (
+        <div className="product">
+          <img
+            src={product.image}
+            alt={product.title}
+            className="image-details"
+          />
+          <h1>{product.title}</h1>
+          <p>{product.description}</p>
+          <p>{product.category}</p>
+          <p>
+            <strong>{product.amount}€</strong>
+          </p>
+          <div className="buttons">
+            <Link to={`/favorites`}>
+              <button className="favorite" onClick={() => addFavorite(product)}>
+                <img src={heartIcon} className="heart" alt="favorite" />
+              </button>
+            </Link>
+
+            <Link to={`/cart`}>
+              <button className="cart" onClick={() => addToCart(product)}>
+                <img src={cartIcon} className="cart" alt="cart" />
+              </button>
+            </Link>
+
+            <button className="delete" onClick={handleDelete}>
+              ❌
             </button>
-          </Link>
-          <Link to={`/cart`}>
-            <button className="cart" onClick={() => addToCart(product)}>
-              <img src={cartIcon} className="cart" alt="cart" />
-            </button>
-          </Link>
+          </div>
         </div>
-      </div>
+      ) : (
+        <p>Product has been deleted.</p>
+      )}
     </>
   );
 }

@@ -16,7 +16,7 @@ export function Supermarket() {
   const [minPrice, setMinPrice] = useState("");
   const [maxPrice, setMaxPrice] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
-  const [showContent, setShowContent] = useState(true); // State to toggle content visibility
+  const [showContent, setShowContent] = useState(true);
   const { addToCart } = useContext(ShoppingCartContext);
   const { addFavorite } = useContext(FavoritesContext);
   const navigate = useNavigate();
@@ -68,6 +68,9 @@ export function Supermarket() {
 
   const handleDelete = (product) => {
     console.log("Deleted product:", product);
+    setFilteredProducts((prevProducts) =>
+      prevProducts.filter((p) => p._id !== product._id)
+    );
   };
 
   const handleProductClick = (productId) => {

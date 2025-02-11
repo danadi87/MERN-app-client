@@ -8,6 +8,7 @@ import heartIcon from "../assets/heart.png";
 import FavoritesContext from "../context/favorites.context";
 import ShoppingCartContext from "../context/shoppingCart.context";
 import { useNavigate } from "react-router-dom";
+import DeleteContext from "../context/delete.context";
 
 export function Restaurant() {
   const [products, setProducts] = useState([]);
@@ -20,6 +21,7 @@ export function Restaurant() {
 
   const { addFavorite } = useContext(FavoritesContext);
   const { addToCart } = useContext(ShoppingCartContext);
+  const { deleteProduct } = useContext(DeleteContext);
   const navigate = useNavigate();
 
   const handleBrandClick = (brand) => {
@@ -68,7 +70,15 @@ export function Restaurant() {
   };
 
   const handleDelete = (product) => {
-    console.log("Deleted product:", product);
+    console.log("Deleting product:", product);
+    deleteProduct(product._id); // Call the delete function from context
+    // After deleting, we need to update the product list in the state
+    setProducts((prevProducts) =>
+      prevProducts.filter((item) => item._id !== product._id)
+    );
+    setFilteredProducts((prevFilteredProducts) =>
+      prevFilteredProducts.filter((item) => item._id !== product._id)
+    );
   };
 
   const handleGoToCart = () => {
@@ -133,7 +143,6 @@ export function Restaurant() {
         </div>
       )}
 
-      {/* Filtros */}
       {showProducts && (
         <>
           <div className="filter-form">
@@ -188,7 +197,6 @@ export function Restaurant() {
                   <p>{product.description}</p>
                   <p className="price">{product.amount}€</p>
                   <div className="button-container">
-                    {/* Boton de Favoritos */}
                     <button
                       onClick={(e) => {
                         e.stopPropagation();
