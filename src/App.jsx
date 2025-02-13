@@ -17,18 +17,16 @@ import { Product } from "./components/Product";
 import IsPrivate from "./components/IsPrivate";
 import { Payment } from "./components/Payment";
 import { ProductDetails } from "./components/ProductDetails";
-
+import { DeleteProviderWrapper } from "./context/delete.context";
 import { NotFound } from "./components/NotFound";
 import "./App.css";
 import IsAnon from "./components/IsAnon";
 import { AddProduct } from "./components/AddProduct";
 import { Aboutus } from "./components/Aboutus";
 import { Contact } from "./components/Contact";
-
 const api = axios.create({
   baseURL: "http://localhost:5005",
 });
-
 export default function App() {
   return (
     <div className="flex flex-col min-h-screen">
