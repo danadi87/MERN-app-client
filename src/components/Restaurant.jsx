@@ -9,6 +9,7 @@ import FavoritesContext from "../context/favorites.context";
 import ShoppingCartContext from "../context/shoppingCart.context";
 import { useNavigate } from "react-router-dom";
 import DeleteContext from "../context/delete.context";
+import { AuthContext } from "../context/auth.context";
 
 export function Restaurant() {
   const [products, setProducts] = useState([]);
@@ -22,8 +23,9 @@ export function Restaurant() {
   const { addFavorite } = useContext(FavoritesContext);
   const { addToCart } = useContext(ShoppingCartContext);
   const { deleteProduct } = useContext(DeleteContext);
+  const { user } = useContext(AuthContext);
   const navigate = useNavigate();
-
+  console.log(user);
   const handleBrandClick = (brand) => {
     console.log("Brand clicked, fetching products...");
     setShowContent(false);
@@ -220,16 +222,17 @@ export function Restaurant() {
                     >
                       🛒
                     </button>
-
-                    <button
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        handleDelete(product);
-                      }}
-                      className="delete-button"
-                    >
-                      ❌
-                    </button>
+                    {user.admin ? (
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleDelete(product);
+                        }}
+                        className="delete-button"
+                      >
+                        ❌
+                      </button>
+                    ) : null}
                   </div>
                 </div>
               ))

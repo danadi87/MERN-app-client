@@ -29,7 +29,7 @@ export function Signup() {
   const handleEmail = (e) => setEmail(e.target.value);
   const handlePassword = (e) => setPassword(e.target.value);
   const handleName = (e) => setName(e.target.value);
-  const handleAdmin = (e) => setAdmin(e.target.value);
+  const handleAdmin = (e) => setAdmin(e.target.checked);
   const handleProfileImage = (e) => setProfileImage(e.target.value);
 
   const handleSignupSubmit = (e) => {
@@ -102,7 +102,10 @@ export function Signup() {
           name="admin"
           id="admin"
           checked={admin}
-          onChange={(e) => setAdmin(e.target.checked)}
+          onChange={(e) => {
+            console.log(e.target.checked);
+            setAdmin(e.target.checked);
+          }}
           disabled={submitting}
           autoComplete="off"
         />

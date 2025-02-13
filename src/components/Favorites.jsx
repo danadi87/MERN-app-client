@@ -1,11 +1,9 @@
 import React, { useContext } from "react";
 import FavoritesContext from "../context/favorites.context";
 import ShoppingCartContext from "../context/shoppingCart.context";
-
 const FavoritesList = () => {
   const { favorites, removeFavorite } = useContext(FavoritesContext);
   const { addToCart } = useContext(ShoppingCartContext);
-
   return (
     <div className="favorites">
       <h1 className="title-cart">My Favorites</h1>
@@ -15,7 +13,7 @@ const FavoritesList = () => {
         <div className="list">
           {favorites.map((product) => {
             return (
-              <div className="favoriteItemCard" key={product.id}>
+              <div className="favoriteItemCard" key={product._id}>
                 <img
                   src={product.image}
                   alt={product.title}
@@ -37,7 +35,7 @@ const FavoritesList = () => {
                   </button>
                   <button
                     className="favorites-list"
-                    onClick={() => removeFavorite(product.id)}
+                    onClick={() => removeFavorite(product._id)}
                   >
                     Remove
                   </button>
@@ -50,5 +48,4 @@ const FavoritesList = () => {
     </div>
   );
 };
-
 export default FavoritesList;
