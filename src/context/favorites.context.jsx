@@ -43,6 +43,7 @@ export const FavoritesProviderWrapper = ({ children }) => {
     }
   };
   const removeFavorite = (productId) => {
+    console.log(productId, "fav product");
     if (storedToken) {
       axios
         .delete(`${API_URL}/auth/favorites/${productId}`, {
@@ -52,7 +53,7 @@ export const FavoritesProviderWrapper = ({ children }) => {
         })
         .then(() => {
           const newFavorites = favorites.filter(
-            (product) => productId !== product.id
+            (product) => productId !== product._id
           );
           setFavorites(newFavorites);
           localStorage.setItem("favorites", JSON.stringify(newFavorites));

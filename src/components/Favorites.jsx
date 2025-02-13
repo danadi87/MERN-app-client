@@ -13,7 +13,7 @@ const FavoritesList = () => {
         <div className="list">
           {favorites.map((product) => {
             return (
-              <div className="favoriteItemCard" key={product.id}>
+              <div className="favoriteItemCard" key={product._id}>
                 <img
                   src={product.image}
                   alt={product.title}
@@ -35,7 +35,7 @@ const FavoritesList = () => {
                   </button>
                   <button
                     className="favorites-list"
-                    onClick={() => removeFavorite(product.id)}
+                    onClick={() => removeFavorite(product._id)}
                   >
                     Remove
                   </button>
