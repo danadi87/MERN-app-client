@@ -19,7 +19,6 @@ import { Payment } from "./components/Payment";
 import { ProductDetails } from "./components/ProductDetails";
 
 import { NotFound } from "./components/NotFound";
->>>>>>> 8e30199a65da0e995d63419b5b45614bc5c637bb
 import "./App.css";
 import IsAnon from "./components/IsAnon";
 import { AddProduct } from "./components/AddProduct";
