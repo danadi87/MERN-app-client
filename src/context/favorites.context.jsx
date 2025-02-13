@@ -43,6 +43,7 @@ export const FavoritesProviderWrapper = ({ children }) => {
     }
   };
   const removeFavorite = (productId) => {
+    console.log(productId, "fav product");
     if (storedToken) {
       axios
         .delete(`${API_URL}/auth/favorites/${productId}`, {
