@@ -222,6 +222,7 @@ export function Restaurant() {
                     >
                       🛒
                     </button>
+
                     {user.admin ? (
                       <button
                         onClick={(e) => {
@@ -231,6 +232,18 @@ export function Restaurant() {
                         className="delete-button"
                       >
                         ❌
+                      </button>
+                    ) : null}
+
+                    {user.admin ? (
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleDelete(product);
+                        }}
+                        className="modify-button"
+                      >
+                        🖊
                       </button>
                     ) : null}
                   </div>
