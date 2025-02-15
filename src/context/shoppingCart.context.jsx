@@ -1,8 +1,10 @@
 import React, { createContext, useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { API_URL } from "../config/config";
+
 const ShoppingCartContext = createContext();
-const API_URL = "http://localhost:5005";
+
 export const ShoppingCartProviderWrapper = ({ children }) => {
   const [cart, setCart] = useState([]);
   const storedToken = localStorage.getItem("authToken");

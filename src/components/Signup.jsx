@@ -4,8 +4,6 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "../styles/Signup.css";
 
-const API_URL = "http://localhost:5005";
-
 const SIGNUP_FORM = {
   email: "",
   password: "",

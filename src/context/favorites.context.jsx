@@ -1,8 +1,10 @@
 import React, { createContext, useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { API_URL } from "../config/config";
+
 const FavoritesContext = createContext();
-const API_URL = "http://localhost:5005";
+
 export const FavoritesProviderWrapper = ({ children }) => {
   const [favorites, setFavorites] = useState([]);
   const storedToken = localStorage.getItem("authToken");

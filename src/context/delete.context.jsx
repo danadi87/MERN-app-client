@@ -1,12 +1,12 @@
 import React, { createContext, useState } from "react";
 import axios from "axios";
+import { API_URL } from "../config/config";
 
 const DeleteContext = createContext();
 
 export function DeleteProviderWrapper({ children }) {
   const [products, setProducts] = useState([]);
   const storedToken = localStorage.getItem("authToken");
-  const API_URL = "http://localhost:5005";
 
   // Inside delete.context.jsx
   const deleteProduct = (productId) => {

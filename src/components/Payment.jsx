@@ -7,6 +7,7 @@ import {
   useElements,
 } from "@stripe/react-stripe-js";
 import "../styles/Payment.css";
+import { API_URL } from "../config/config";
 
 const stripePromise = loadStripe(
   "pk_test_51Qs8GxCB5CgnDcFykjHzarxMbUgsSafOCgnJhs5GjW2pMgwzInDa1hk1Ka6UXIlrxajEFl50QMNaGS6n0vbynaNM00FvZFDH17"
@@ -16,7 +17,7 @@ export function Payment() {
   const [clientSecret, setClientSecret] = useState("");
 
   useEffect(() => {
-    fetch("http://localhost:5005/payment/create-payment-intent", {
+    fetch(`${API_URL}/payment/create-payment-intent"`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ amount: 5000, currency: "usd" }),

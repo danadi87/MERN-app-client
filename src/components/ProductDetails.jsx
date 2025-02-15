@@ -4,6 +4,7 @@ import axios from "axios";
 import "../styles/ProductDetails.css";
 import { useContext } from "react";
 import ShoppingCartContext from "../context/shoppingCart.context";
+import { API_URL } from "../config/config";
 
 export function ProductDetails() {
   const { productId } = useParams();
@@ -13,7 +14,7 @@ export function ProductDetails() {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:5005/api/products/${productId}`)
+      .get(`${API_URL}/api/products/${productId}`)
       .then((response) => {
         setProduct(response.data);
       })

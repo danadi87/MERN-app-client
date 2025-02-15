@@ -8,6 +8,7 @@ import heartIcon from "../assets/heart.png";
 import ShoppingCartContext from "../context/shoppingCart.context";
 import FavoritesContext from "../context/favorites.context";
 import { useNavigate } from "react-router-dom";
+import { API_URL } from "../config/config";
 
 export function Supermarket() {
   const [products, setProducts] = useState([]);
@@ -23,7 +24,7 @@ export function Supermarket() {
 
   const fetchSupermarketProducts = () => {
     axios
-      .get("http://localhost:5005/api/products?category=Supermarket")
+      .get(`${API_URL}/api/products?category=Supermarket`)
       .then((response) => {
         setProducts(response.data);
         setFilteredProducts(response.data);
