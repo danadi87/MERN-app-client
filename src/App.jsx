@@ -24,10 +24,14 @@ import IsAnon from "./components/IsAnon";
 import { AddProduct } from "./components/AddProduct";
 import { Aboutus } from "./components/Aboutus";
 import { Contact } from "./components/Contact";
+<<<<<<< HEAD
 import { ModifyProduct } from "./components/ModifyProduct";
+=======
+import { API_URL } from "./config/config";
+>>>>>>> a13b95b29fbd711569c56c9503bfbe1964b2ed05
 
 const api = axios.create({
-  baseURL: "http://localhost:5005",
+  baseURL: `${API_URL}`,
 });
 export default function App() {
   return (

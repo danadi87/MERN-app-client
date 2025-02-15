@@ -1,13 +1,21 @@
 import React, { useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import ShoppingCartContext from "../context/shoppingCart.context";
 import FavoritesContext from "../context/favorites.context";
+import "../styles/ShoppingCart.css";
+import heartIcon from "../assets/heart.png";
 
 const ShoppingCart = () => {
   const { cart, removeCart } = useContext(ShoppingCartContext);
   const { addFavorite } = useContext(FavoritesContext);
+  const navigate = useNavigate();
+
   return (
     <div className="cart-container">
       <h1 className="title-cart">My Shopping Cart</h1>
+      <button className="homepage" onClick={() => navigate("/")}>
+        Home
+      </button>
       {cart.length === 0 ? (
         <p>Your cart is empty!</p>
       ) : (
@@ -32,18 +40,25 @@ const ShoppingCart = () => {
                     className="favorites-list"
                     onClick={() => addFavorite(product)}
                   >
-                    Add to Favorites
+                    <img src={heartIcon} className="heart" alt="favorite" />
                   </button>
                   <button
                     className="favorites-list"
                     onClick={() => removeCart(product.id)}
                   >
-                    Remove
+                    ❌
                   </button>
                 </div>
               </div>
             );
           })}
+
+          <button
+            className="payment-button"
+            onClick={() => navigate("/payment")}
+          >
+            Continue and Pay
+          </button>
         </div>
       )}
     </div>

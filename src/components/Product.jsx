@@ -7,9 +7,9 @@ import ShoppingCartContext from "../context/shoppingCart.context";
 import DeleteContext from "../context/delete.context";
 import heartIcon from "../assets/heart.png";
 import cartIcon from "../assets/cart.png";
+import { API_URL } from "../config/config";
 
 export function Product() {
-  const API_URL = "http://localhost:5005";
   const [product, setProduct] = useState(null);
   const { id } = useParams();
   const { addFavorite } = useContext(FavoritesContext);

@@ -3,6 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import "../styles/ProductDetails.css";
 import ShoppingCartContext from "../context/shoppingCart.context";
+import { API_URL } from "../config/config";
 
 export function ProductDetails() {
   const { productId } = useParams();
@@ -13,7 +14,7 @@ export function ProductDetails() {
   useEffect(() => {
     console.log("Fetching product details for ID:", productId);
     axios
-      .get(`http://localhost:5005/api/products/${productId}`)
+      .get(`${API_URL}/api/products/${productId}`)
       .then((response) => {
         console.log("Product details fetched:", response.data);
         setProduct(response.data);

@@ -9,6 +9,7 @@ import ShoppingCartContext from "../context/shoppingCart.context";
 import FavoritesContext from "../context/favorites.context";
 import DeleteContext from "../context/delete.context";
 import { useNavigate } from "react-router-dom";
+import { API_URL } from "../config/config";
 
 export function Pharmacy() {
   const [products, setProducts] = useState([]);
@@ -26,7 +27,7 @@ export function Pharmacy() {
   const fetchPharmacyProducts = () => {
     console.log("Fetching pharmacy products...");
     axios
-      .get("http://localhost:5005/api/products?category=Pharmacy")
+      .get(`${API_URL}/api/products?category=Pharmacy`)
       .then((response) => {
         console.log("Products fetched:", response.data);
         setProducts(response.data);

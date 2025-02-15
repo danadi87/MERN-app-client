@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-
-const API_URL = "http://localhost:5005";
+import { API_URL } from "../config/config";
 
 const AuthContext = React.createContext();
 
@@ -25,6 +24,7 @@ function AuthProviderWrapper(props) {
         .then((response) => {
           const user = response.data;
           console.log("User data received:", user);
+
           setIsLoggedIn(true);
           setIsLoading(false);
           setUser(user);

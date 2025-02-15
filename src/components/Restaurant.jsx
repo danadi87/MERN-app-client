@@ -10,6 +10,7 @@ import ShoppingCartContext from "../context/shoppingCart.context";
 import { useNavigate } from "react-router-dom";
 import DeleteContext from "../context/delete.context";
 import { AuthContext } from "../context/auth.context";
+import { API_URL } from "../config/config";
 
 export function Restaurant() {
   const [products, setProducts] = useState([]);
@@ -30,9 +31,7 @@ export function Restaurant() {
     console.log("Brand clicked, fetching products...");
     setShowContent(false);
     axios
-      .get(
-        `http://localhost:5005/api/products?category=Restaurant&brand=${brand}`
-      )
+      .get(`${API_URL}/api/products?category=Restaurant&brand=${brand}`)
       .then((response) => {
         console.log("Products received from API: ", response.data);
         setProducts(response.data);

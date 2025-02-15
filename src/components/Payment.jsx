@@ -1,32 +1,67 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { loadStripe } from "@stripe/stripe-js";
+import {
+  Elements,
+  CardElement,
+  useStripe,
+  useElements,
+} from "@stripe/react-stripe-js";
+import "../styles/Payment.css";
+import { API_URL } from "../config/config";
+
+const stripePromise = loadStripe(
+  "pk_test_51Qs8GxCB5CgnDcFykjHzarxMbUgsSafOCgnJhs5GjW2pMgwzInDa1hk1Ka6UXIlrxajEFl50QMNaGS6n0vbynaNM00FvZFDH17"
+);
 
 export function Payment() {
+  const [clientSecret, setClientSecret] = useState("");
+
+  useEffect(() => {
+    fetch(`${API_URL}/payment/create-payment-intent"`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ amount: 5000, currency: "usd" }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log("Received clientSecret:", data.clientSecret);
+        setClientSecret(data.clientSecret);
+      })
+      .catch((error) => console.error("Error fetching clientSecret:", error));
+  }, []);
+
   return (
-    <>
-      <h1>Add a card</h1>
-      <p>
-        This card will be set as your default payment method for your future
-        orders
-      </p>
-      <form>
-        <label>Name on card</label>
-        <input type="text" placeholder="John Smith"></input>
-        <label>Card number</label>
-        <input type="text" placeholder="4242 4242 4242 4242"></input>
-        <label>Expiration date</label>
-        <input type="text" placeholder="MM/YY"></input>
-        <label>CVC</label>
-        <input type="number" placeholder="CVC"></input>
-        <label>Country</label>
-        <input type="text" placeholder="Country"></input>
-        <label>Postal code</label>
-        <input type="text" placeholder="10018"></input>
-      </form>
-      <button>Save</button>
-      <p>
-        By continuing, you have read and accept the Terms and Conditions and
-        Privay Policy
-      </p>
-    </>
+    <Elements stripe={stripePromise} options={{ clientSecret }}>
+      <CheckoutForm clientSecret={clientSecret} />
+    </Elements>
+  );
+}
+
+function CheckoutForm({ clientSecret }) {
+  const stripe = useStripe();
+  const elements = useElements();
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    if (!stripe || !elements || !clientSecret) return;
+
+    const result = await stripe.confirmCardPayment(clientSecret, {
+      payment_method: { card: elements.getElement(CardElement) },
+    });
+
+    if (result.error) {
+      console.error(result.error.message);
+    } else {
+      console.log("Payment successful!", result.paymentIntent);
+    }
+  };
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <CardElement />
+      <button type="submit" disabled={!stripe}>
+        Pay
+      </button>
+    </form>
   );
 }
