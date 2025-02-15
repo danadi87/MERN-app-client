@@ -239,7 +239,7 @@ export function Restaurant() {
                       <button
                         onClick={(e) => {
                           e.stopPropagation();
-                          handleDelete(product);
+                          navigate(`/modify-product/${product._id}`);
                         }}
                         className="modify-button"
                       >

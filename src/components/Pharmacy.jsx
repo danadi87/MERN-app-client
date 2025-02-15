@@ -229,6 +229,14 @@ export function Pharmacy() {
                       >
                         ❌
                       </button>
+                      <button
+                        onClick={() =>
+                          navigate(`/modify-product/${product._id}`)
+                        }
+                        className="modify-button"
+                      >
+                        🖊
+                      </button>
                     </div>
                   </div>
                 );

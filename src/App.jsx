@@ -24,6 +24,8 @@ import IsAnon from "./components/IsAnon";
 import { AddProduct } from "./components/AddProduct";
 import { Aboutus } from "./components/Aboutus";
 import { Contact } from "./components/Contact";
+import { ModifyProduct } from "./components/ModifyProduct";
+
 const api = axios.create({
   baseURL: "http://localhost:5005",
 });
@@ -106,6 +108,10 @@ export default function App() {
           <Route path="/aboutus" element={<Aboutus />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/addproduct" element={<AddProduct />} />
+          <Route
+            path="/modify-product/:productId"
+            element={<ModifyProduct />}
+          />
           <Route
             path="/product-details/:productId"
             element={<ProductDetails />}

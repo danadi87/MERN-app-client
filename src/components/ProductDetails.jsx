@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import "../styles/ProductDetails.css";
-import { useContext } from "react";
 import ShoppingCartContext from "../context/shoppingCart.context";
 
 export function ProductDetails() {
@@ -12,9 +11,11 @@ export function ProductDetails() {
   const navigate = useNavigate();
 
   useEffect(() => {
+    console.log("Fetching product details for ID:", productId);
     axios
       .get(`http://localhost:5005/api/products/${productId}`)
       .then((response) => {
+        console.log("Product details fetched:", response.data);
         setProduct(response.data);
       })
       .catch((error) => {
@@ -23,8 +24,14 @@ export function ProductDetails() {
   }, [productId]);
 
   const handleAddToCart = (product) => {
+    console.log("Adding to cart:", product);
     addToCart(product);
     navigate("/cart");
+  };
+
+  const handleModifyProduct = () => {
+    console.log("Navigating to modify product page for ID:", productId);
+    navigate(`/modify-product/${productId}`);
   };
 
   return (
@@ -46,6 +53,12 @@ export function ProductDetails() {
                 className="add-to-cart-btn"
               >
                 Add to Cart
+              </button>
+              <button
+                onClick={handleModifyProduct}
+                className="modify-product-btn"
+              >
+                Modify
               </button>
             </div>
           </div>
