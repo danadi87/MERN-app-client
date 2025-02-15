@@ -29,7 +29,8 @@ export function ProductDetails() {
     navigate("/cart");
   };
 
-  const handleModifyProduct = () => {
+  const handleModifyProduct = (event) => {
+    event.stopPropagation(); // Prevents unintended navigation
     console.log("Navigating to modify product page for ID:", productId);
     navigate(`/modify-product/${productId}`);
   };
