@@ -1,0 +1,20 @@
+.favorites {
+  text-align: center;
+}
+.list {
+  display: flex;
+  border: 1px solid orange;
+  border-radius: 50px;
+  padding: 10px;
+  margin: 10px;
+}
+.favorites-list {
+  margin: 20px;
+  display: flex;
+  height: fit-content;
+}
+.homepage {
+  display: flex;
+  justify-content: flex-start;
+  height: fit-content;
+}

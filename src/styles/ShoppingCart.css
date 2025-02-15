@@ -1,0 +1,21 @@
+.cart-container {
+  text-align: center;
+}
+.list {
+  margin: 10px;
+  display: flex;
+  border: 1px solid orange;
+  border-radius: 50px;
+  padding: 10px;
+  margin: 20px;
+}
+.favorites-list {
+  display: flex;
+  height: fit-content;
+}
+.payment-button {
+  height: fit-content;
+}
+.homepage {
+  height: fit-content;
+}

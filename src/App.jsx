@@ -24,6 +24,7 @@ import IsAnon from "./components/IsAnon";
 import { AddProduct } from "./components/AddProduct";
 import { Aboutus } from "./components/Aboutus";
 import { Contact } from "./components/Contact";
+
 const api = axios.create({
   baseURL: "http://localhost:5005",
 });

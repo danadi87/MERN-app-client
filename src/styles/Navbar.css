@@ -27,3 +27,7 @@
   color: darkorange;
   font-weight: bold;
 }
+.navbar-logo {
+  width: 110px;
+  height: auto;
+}

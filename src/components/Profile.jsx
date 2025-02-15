@@ -2,6 +2,7 @@ import React, { useState, useContext } from "react";
 import { AuthContext } from "../context/auth.context";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import "../styles/Profile.css";
 
 export function Profile() {
   const { user, setUser } = useContext(AuthContext);
