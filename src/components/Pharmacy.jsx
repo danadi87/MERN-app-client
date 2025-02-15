@@ -230,9 +230,10 @@ export function Pharmacy() {
                         ❌
                       </button>
                       <button
-                        onClick={() =>
-                          navigate(`/modify-product/${product._id}`)
-                        }
+                        onClick={(event) => {
+                          event.stopPropagation();
+                          navigate(`/modify-product/${product._id}`);
+                        }}
                         className="modify-button"
                       >
                         🖊
