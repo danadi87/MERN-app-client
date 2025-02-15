@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import ShoppingCartContext from "../context/shoppingCart.context";
 import FavoritesContext from "../context/favorites.context";
 import "../styles/ShoppingCart.css";
+import heartIcon from "../assets/heart.png";
 
 const ShoppingCart = () => {
   const { cart, removeCart } = useContext(ShoppingCartContext);
@@ -34,22 +35,24 @@ const ShoppingCart = () => {
                 <p>
                   <strong>{product.amount}€</strong>
                 </p>
-                <div className="buttons-favorites-list"></div>
+                <div className="buttons-favorites-list">
+                  <button
+                    className="favorites-list"
+                    onClick={() => addFavorite(product)}
+                  >
+                    <img src={heartIcon} className="heart" alt="favorite" />
+                  </button>
+                  <button
+                    className="favorites-list"
+                    onClick={() => removeCart(product.id)}
+                  >
+                    ❌
+                  </button>
+                </div>
               </div>
             );
           })}
-          <button
-            className="favorites-list"
-            onClick={() => addFavorite(product)}
-          >
-            Add to Favorites
-          </button>
-          <button
-            className="favorites-list"
-            onClick={() => removeCart(product.id)}
-          >
-            Remove
-          </button>
+
           <button
             className="payment-button"
             onClick={() => navigate("/payment")}

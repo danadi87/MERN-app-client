@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import FavoritesContext from "../context/favorites.context";
 import ShoppingCartContext from "../context/shoppingCart.context";
 import "../styles/Favorites.css";
+import cartIcon from "../assets/cart.png";
 
 const FavoritesList = () => {
   const { favorites, removeFavorite } = useContext(FavoritesContext);
@@ -31,19 +32,23 @@ const FavoritesList = () => {
                 <p>
                   <strong>{product.amount}€</strong>
                 </p>
-                <div className="buttons-favorites-list"></div>
+                <div className="buttons-favorites-list">
+                  <button
+                    className="favorites-list"
+                    onClick={() => addToCart(product)}
+                  >
+                    <img src={cartIcon} className="cart" alt="cart" />
+                  </button>
+                  <button
+                    className="favorites-list"
+                    onClick={() => removeFavorite(product._id)}
+                  >
+                    ❌
+                  </button>
+                </div>
               </div>
             );
           })}
-          <button className="favorites-list" onClick={() => addToCart(product)}>
-            Add to Cart
-          </button>
-          <button
-            className="favorites-list"
-            onClick={() => removeFavorite(product._id)}
-          >
-            Remove
-          </button>
         </div>
       )}
     </div>
