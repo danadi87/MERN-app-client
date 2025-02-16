@@ -16,6 +16,7 @@
   padding: 15px;
   background-color: #fff;
   gap: 15px;
+  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.5);
 }
 .image-favorites {
   width: 80px;
@@ -58,4 +59,17 @@
   width: 24px;
   height: 24px;
   object-fit: contain;
+}
+.cartItem:hover {
+  background-color: darkorange;
+  color: white;
+  transform: scale(1.03);
+  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.5);
+}
+.cartItem:hover p {
+  color: white;
+}
+.cartItem:hover .favorites-list {
+  background-color: white;
+  color: darkorange;
 }

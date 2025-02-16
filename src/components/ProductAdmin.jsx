@@ -1,24 +1,23 @@
 import React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+import "../styles/ProductAdmin.css";
 
 export function ProductAdmin() {
-  const navigate = useNavigate();
-
   return (
-    <div>
+    <div className="product-admin-container">
       <h1>Product</h1>
       <div className="links-product">
-        <ul>
-          <li>
-            <Link to="/add-product">Add a Product</Link>
-          </li>
-          <li>
-            <Link to="/modify-product/:productId">Modify a Product</Link>
-          </li>
-          <li>
-            <Link to="/delete-product">Delete a Product</Link>
-          </li>
-        </ul>
+        <Link to="/add-product" className="product-buttons">
+          Add a Product
+        </Link>
+
+        <Link to="/modify-product/:productId" className="product-buttons">
+          Modify a Product
+        </Link>
+
+        <Link to="/delete-product" className="product-buttons">
+          Delete a Product
+        </Link>
       </div>
     </div>
   );
