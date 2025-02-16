@@ -20,8 +20,10 @@ export const DeleteProduct = () => {
 
   useEffect(() => {
     console.log("Fetching all products:");
+    console.log("API_URL:", API_URL);
+
     axios
-      .get(`${API_URL}api/products`)
+      .get(`${API_URL}/api/products`)
       .then((response) => {
         console.log("Products data fetched:", response.data);
         setProducts(response.data);
@@ -46,7 +48,7 @@ export const DeleteProduct = () => {
   useEffect(() => {
     if (selectedProductId)
       axios
-        .get(`${API_URL}api/products/${selectedProductId}`)
+        .get(`${API_URL}/api/products/${selectedProductId}`)
         .then((response) => {
           console.log("Product data fetched:", response.data);
           setProduct(response.data);
@@ -61,16 +63,31 @@ export const DeleteProduct = () => {
       alert("Please select a product to delete");
       return;
     }
+    console.log("Deleting product with ID:", selectedProductId);
+    setSubmitting(true);
 
     axios
-      .delete(`${API_URL}api/products/${selectedProductId}`)
-      .then(() => {
+      .delete(`${API_URL}/api/products/${selectedProductId}`)
+      .then((response) => {
         console.log("Product successfully deleted");
         alert("Product deleted successfully!");
-        navigate("/product-admin");
+        return axios.get(`${API_URL}/api/products`);
+      })
+      .then((response) => {
+        console.log("Updated product list fetched:", response.data);
+
+        setProducts(response.data);
+        setSelectedCategory("");
+        setSelectedProductId(null);
+        setFilteredProducts([]);
+        setProduct(null);
       })
       .catch((error) => {
         console.error("Error deleting product:", error);
+        alert("Failed to delete product. Please try again.");
+      })
+      .finally(() => {
+        setSubmitting(false);
       });
   };
 
@@ -122,9 +139,9 @@ export const DeleteProduct = () => {
       <button
         onClick={handleDelete}
         className="delete-product-button"
-        disabled={!selectedProductId}
+        disabled={!selectedProductId || submitting}
       >
-        Delete Product
+        {submitting ? "Deleting..." : "Delete Product"}
       </button>
 
       {!product && selectedProductId && <p>Loading product details...</p>}
