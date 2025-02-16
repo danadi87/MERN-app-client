@@ -7,32 +7,63 @@ import { API_URL } from "../config/config";
 export const DeleteProduct = () => {
   const { productId } = useParams();
   const navigate = useNavigate();
-  const [product, setProduct] = useState({
-    title: "",
-    amount: "",
-    description: "",
-    category: "",
-    image: "",
-  });
+
+  const [products, setProducts] = useState([]);
+  const [product, setProduct] = useState(null);
+  const [category, setCategory] = useState("");
+  const [submitting, setSubmitting] = useState(false);
+  const [selectedProductId, setSelectedProductId] = useState(productId);
+  const [filteredProducts, setFilteredProducts] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState("");
+
+  const handleCategory = (e) => setCategory(e.target.value);
 
   useEffect(() => {
-    console.log("Fetching product details for deletion:", productId);
+    console.log("Fetching all products:");
     axios
-      .get(`${API_URL}api/products/${productId}`)
+      .get(`${API_URL}api/products`)
       .then((response) => {
-        console.log("Product data fetched:", response.data);
-        setProduct(response.data);
+        console.log("Products data fetched:", response.data);
+        setProducts(response.data);
       })
       .catch((error) => {
-        console.error("Error fetching product details:", error);
+        console.error("Error fetching products:", error);
       });
-  }, [productId]);
+  }, []);
+
+  useEffect(() => {
+    if (selectedCategory) {
+      setFilteredProducts(
+        products.filter((prod) => prod.category === selectedCategory)
+      );
+    } else {
+      setFilteredProducts([]);
+    }
+    setSelectedProductId("");
+    setProduct(null);
+  }, [selectedCategory, products]);
+
+  useEffect(() => {
+    if (selectedProductId)
+      axios
+        .get(`${API_URL}api/products/${selectedProductId}`)
+        .then((response) => {
+          console.log("Product data fetched:", response.data);
+          setProduct(response.data);
+        })
+        .catch((error) => {
+          console.error("Error fetching product details:", error);
+        });
+  }, [selectedProductId]);
 
   const handleDelete = () => {
-    console.log("Deleting product with ID:", productId);
+    if (!selectedProductId) {
+      alert("Please select a product to delete");
+      return;
+    }
 
     axios
-      .delete(`${API_URL}api/products/${productId}`)
+      .delete(`${API_URL}api/products/${selectedProductId}`)
       .then(() => {
         console.log("Product successfully deleted");
         alert("Product deleted successfully!");
@@ -45,9 +76,36 @@ export const DeleteProduct = () => {
 
   return (
     <div className="modify-product-container">
-      <h2 className="modify-product-title">
-        Are you sure you want to delete this product?
-      </h2>
+      <h2 className="modify-product-title">Select product to delete:</h2>
+      <form>
+        <label className="label">Category</label>
+        <select
+          name="category"
+          value={selectedCategory}
+          onChange={(e) => setSelectedCategory(e.target.value)}
+          disabled={submitting}
+        >
+          <option value="">Select a category</option>
+          <option value="Supermarket">Supermarket</option>
+          <option value="Pharmacy">Pharmacy</option>
+          <option value="Restaurant">Restaurant</option>
+        </select>
+
+        <label className="label">Select Product</label>
+        <select
+          name="product"
+          value={selectedProductId}
+          onChange={(e) => setSelectedProductId(e.target.value)}
+          disabled={!selectedCategory}
+        >
+          <option value="">Select a product</option>
+          {filteredProducts.map((prod) => (
+            <option key={prod._id} value={prod._id}>
+              {prod.title}
+            </option>
+          ))}
+        </select>
+      </form>
 
       {product && (
         <div className="modify-product-image-container">
@@ -61,11 +119,15 @@ export const DeleteProduct = () => {
         </div>
       )}
 
-      <button onClick={handleDelete} className="delete-product-button">
+      <button
+        onClick={handleDelete}
+        className="delete-product-button"
+        disabled={!selectedProductId}
+      >
         Delete Product
       </button>
 
-      {!product && <p>Loading product details...</p>}
+      {!product && selectedProductId && <p>Loading product details...</p>}
     </div>
   );
 };
