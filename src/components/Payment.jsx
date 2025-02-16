@@ -1,22 +1,31 @@
 import React, { useState, useEffect } from "react";
-import { loadStripe } from "@stripe/stripe-js";
-import {
-  Elements,
-  CardElement,
-  useStripe,
-  useElements,
-} from "@stripe/react-stripe-js";
 import "../styles/Payment.css";
 import { API_URL } from "../config/config";
 
-const stripePromise = loadStripe(
-  "pk_test_51Qs8GxCB5CgnDcFykjHzarxMbUgsSafOCgnJhs5GjW2pMgwzInDa1hk1Ka6UXIlrxajEFl50QMNaGS6n0vbynaNM00FvZFDH17"
-);
-
 export function Payment() {
-  const [clientSecret, setClientSecret] = useState("");
-
   useEffect(() => {
+    const button = document.querySelector("button");
+    button.addEventListener("click", () => {
+      fetch("checkout", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/JSON",
+        },
+        body: JSON.stringify(),
+      })
+        .then((res) => {
+          if (res.ok) return res.json();
+          return res.json().then((json) => Promise.reject(json));
+        })
+        .then(({ url }) => {
+          console.log(url);
+          //window.location = url;
+        })
+        .catch((e) => {
+          console.error(e.error);
+        });
+    });
+
     fetch(`${API_URL}/payment/create-payment-intent"`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -31,34 +40,7 @@ export function Payment() {
   }, []);
 
   return (
-    <Elements stripe={stripePromise} options={{ clientSecret }}>
-      <CheckoutForm clientSecret={clientSecret} />
-    </Elements>
-  );
-}
-
-function CheckoutForm({ clientSecret }) {
-  const stripe = useStripe();
-  const elements = useElements();
-
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    if (!stripe || !elements || !clientSecret) return;
-
-    const result = await stripe.confirmCardPayment(clientSecret, {
-      payment_method: { card: elements.getElement(CardElement) },
-    });
-
-    if (result.error) {
-      console.error(result.error.message);
-    } else {
-      console.log("Payment successful!", result.paymentIntent);
-    }
-  };
-
-  return (
     <form onSubmit={handleSubmit}>
-      <CardElement />
       <button type="submit" disabled={!stripe}>
         Pay
       </button>

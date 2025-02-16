@@ -23,7 +23,7 @@ export function Navbar() {
             <Link to="/profile">My profile</Link>
             <Link to="/favorites">Favorites</Link>
             <Link to="/cart">Shopping cart</Link>
-            <Link to="/addproduct">Product</Link>
+            <Link to="/product-admin">Product</Link>
             <button onClick={logOutUser} className="logout-button">
               Logout
             </button>
