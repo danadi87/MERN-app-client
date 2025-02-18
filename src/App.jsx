@@ -19,7 +19,7 @@ import { Payment } from "./components/Payment";
 import { ProductDetails } from "./components/ProductDetails";
 import { DeleteProviderWrapper } from "./context/delete.context";
 import { NotFound } from "./components/NotFound";
-import "./App.css";
+//import "./App.css";
 import IsAnon from "./components/IsAnon";
 import { AddProduct } from "./components/AddProduct";
 import { Aboutus } from "./components/Aboutus";

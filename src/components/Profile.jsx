@@ -54,8 +54,9 @@ export function Profile() {
       alert("You must type DELETE to confirm.");
       return;
     }
+    console.log("pizza");
     try {
-      await axios.delete(`${API_URL}/auth/users/:${user._id}`, {
+      await axios.delete(`${API_URL}/auth/users/${user._id}`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("authToken")}`,
         },
@@ -110,26 +111,25 @@ export function Profile() {
           <button className="payment">
             <Link to={"/payment"}>Add a payment method</Link>
           </button>
-
-          <button className="delete-profile" onClick={handleDeleteClick}>
-            Delete my account
-          </button>
-          {showDeleteInput && (
-            <form onSubmit={handleDeleteAccount}>
-              <p>
-                Type <strong>DELETE</strong> to confirm account deletion:
-              </p>
-              <input
-                type="text"
-                value={deleteInput}
-                onChange={(e) => setDeleteInput(e.target.value)}
-                placeholder="Type DELETE"
-              />
-              <button type="submit">Delete</button>
-            </form>
-          )}
         </div>
       </form>
+      <button className="delete-profile" onClick={handleDeleteClick}>
+        Delete my account
+      </button>
+      {showDeleteInput && (
+        <form onSubmit={handleDeleteAccount}>
+          <p>
+            Type <strong>DELETE</strong> to confirm account deletion:
+          </p>
+          <input
+            type="text"
+            value={deleteInput}
+            onChange={(e) => setDeleteInput(e.target.value)}
+            placeholder="Type DELETE"
+          />
+          <button type="submit">Delete</button>
+        </form>
+      )}
     </div>
   );
 }
