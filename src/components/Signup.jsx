@@ -56,7 +56,7 @@ export function Signup() {
         setErrorMessage(errorDescription);
       })
       .finally(() => {
-        setSubmitting(false); // Stop loading after request
+        setSubmitting(false);
       });
   };
 

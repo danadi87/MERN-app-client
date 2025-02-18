@@ -3,7 +3,6 @@ import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/auth.context";
 import { API_URL } from "../config/config";
-import { BackButton } from "./BackButton";
 import { Spinner } from "./Spinner";
 
 export function Login() {
@@ -40,7 +39,6 @@ export function Login() {
   return (
     <div>
       <form onSubmit={handleLoginSubmit}>
-        <BackButton />
         <h3>Login</h3>
         <label>Email</label>
         <input

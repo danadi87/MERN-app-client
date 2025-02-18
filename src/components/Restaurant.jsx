@@ -12,6 +12,7 @@ import DeleteContext from "../context/delete.context";
 import { AuthContext } from "../context/auth.context";
 import { API_URL } from "../config/config";
 import { BackButton } from "./BackButton";
+
 export function Restaurant() {
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
@@ -27,11 +28,18 @@ export function Restaurant() {
   const { user } = useContext(AuthContext);
   const navigate = useNavigate();
   console.log(user);
+
   const handleBrandClick = (brand) => {
-    console.log("Brand clicked, fetching products...");
+    console.log(`Fetching products for: ${brand}`);
     setShowContent(false);
+    setShowProducts(false);
+
     axios
-      .get(`${API_URL}/api/products?category=Restaurant&brand=${brand}`)
+      .get(
+        `${API_URL}/api/products?category=Restaurant&brand=${encodeURIComponent(
+          brand
+        )}`
+      )
       .then((response) => {
         console.log("Products received from API: ", response.data);
         setProducts(response.data);

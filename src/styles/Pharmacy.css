@@ -15,7 +15,7 @@ h1 {
   justify-content: center;
   gap: 30px;
   margin-top: 20px;
-  flex-wrap: wrap; /* Ensure logos wrap if needed on smaller screens */
+  flex-wrap: wrap; 
 }
 
 .logo-item {
@@ -26,16 +26,16 @@ h1 {
 }
 
 .logo-grid img {
-  width: 120px; /* Set fixed width for logos */
-  height: 120px; /* Set fixed height for logos */
+  width: 120px; 
+  height: 120px;
   object-fit: contain;
   transition: transform 0.3s ease, box-shadow 0.3s ease-in-out;
   border-radius: 8px;
 }
 
 .logo-grid img:hover {
-  transform: scale(1.2); /* Make the logo 20% bigger when hovered */
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); /* More pronounced box shadow */
+  transform: scale(1.2); 
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); 
 }
 
 .logo-text {
@@ -46,8 +46,8 @@ h1 {
 }
 
 .logo-grid img:hover + .logo-text {
-  font-weight: bold; /* Make text bold when hovered */
-  color: #28a745; /* Change text color to highlight when hovered */
+  font-weight: bold; 
+  color: #28a745; 
 }
 
 .brand-content {
