@@ -1,9 +1,11 @@
 import React from "react";
 import "../styles/Aboutus.css";
+import { BackButton } from "./BackButton";
 
 export function Aboutus() {
   return (
     <div className="about-us">
+      <BackButton />
       <h1>About Us</h1>
       <p>
         We are two passionate women who found our way into coding thanks to the

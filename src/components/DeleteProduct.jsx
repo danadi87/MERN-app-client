@@ -3,6 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import "../styles/ModifyProduct.css";
 import { API_URL } from "../config/config";
+import { BackButton } from "./BackButton";
 
 export const DeleteProduct = () => {
   const { productId } = useParams();
@@ -93,6 +94,7 @@ export const DeleteProduct = () => {
 
   return (
     <div className="modify-product-container">
+      <BackButton />
       <h2 className="modify-product-title">Select product to delete:</h2>
       <form>
         <label className="label">Category</label>

@@ -4,7 +4,7 @@ import ShoppingCartContext from "../context/shoppingCart.context";
 import FavoritesContext from "../context/favorites.context";
 import "../styles/ShoppingCart.css";
 import heartIcon from "../assets/heart.png";
-
+import { BackButton } from "./BackButton";
 const ShoppingCart = () => {
   const { cart, removeCart } = useContext(ShoppingCartContext);
   const { addFavorite } = useContext(FavoritesContext);
@@ -12,6 +12,7 @@ const ShoppingCart = () => {
 
   return (
     <div className="cart-container">
+      <BackButton />
       <h1 className="title-cart">My Shopping Cart</h1>
       <button className="homepage" onClick={() => navigate("/")}>
         Home

@@ -1,31 +1,29 @@
-import React from "react";
-import { useState, useContext } from "react";
+import React, { useState, useContext } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/auth.context";
 import { API_URL } from "../config/config";
+import { BackButton } from "./BackButton";
+import { Spinner } from "./Spinner";
 
 export function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState(undefined);
+  const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
-
   const { storeToken, authenticateUser } = useContext(AuthContext);
-
-  const handleEmail = (e) => setEmail(e.target.value);
-  const handlePassword = (e) => setPassword(e.target.value);
 
   const handleLoginSubmit = (e) => {
     e.preventDefault();
+    setLoading(true);
     const requestBody = { email, password };
 
     axios
       .post(`${API_URL}/auth/login`, requestBody)
       .then((response) => {
         console.log("JWT token", response.data.authToken);
-
         storeToken(response.data.authToken);
         authenticateUser();
         navigate("/");
@@ -33,12 +31,16 @@ export function Login() {
       .catch((error) => {
         const errorDescription = error.response.data.message;
         setErrorMessage(errorDescription);
+      })
+      .finally(() => {
+        setLoading(false);
       });
   };
 
   return (
     <div>
       <form onSubmit={handleLoginSubmit}>
+        <BackButton />
         <h3>Login</h3>
         <label>Email</label>
         <input
@@ -46,8 +48,9 @@ export function Login() {
           name="email"
           id="email"
           value={email}
-          onChange={handleEmail}
+          onChange={(e) => setEmail(e.target.value)}
           autoComplete="off"
+          disabled={loading}
         />
         <label>Password</label>
         <input
@@ -55,13 +58,16 @@ export function Login() {
           name="password"
           id="password"
           value={password}
-          onChange={handlePassword}
+          onChange={(e) => setPassword(e.target.value)}
           autoComplete="off"
+          disabled={loading}
         />
-        <button type="submit">Log In</button>
+        <button type="submit" disabled={loading}>
+          {loading ? <Spinner /> : "Log In"}
+        </button>
       </form>
-      {errorMessage && <p className="error-message">{errorMessage}</p>}
 
+      {errorMessage && <p className="error-message">{errorMessage}</p>}
       <p>Don't have an account yet?</p>
       <Link to={"/signup"}> Sign Up</Link>
     </div>

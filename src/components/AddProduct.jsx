@@ -3,6 +3,7 @@ import axios from "axios";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { API_URL } from "../config/config";
+import { BackButton } from "./BackButton";
 
 const ADD_PROD = {
   category: "",
@@ -62,6 +63,7 @@ export function AddProduct() {
 
   return (
     <div className="add-product">
+      <BackButton />
       <form onSubmit={handleAddProductSubmit}>
         <h1>Add a product</h1>
         <label className="label">Category</label>

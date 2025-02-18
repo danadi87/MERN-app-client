@@ -9,6 +9,7 @@ import ShoppingCartContext from "../context/shoppingCart.context";
 import FavoritesContext from "../context/favorites.context";
 import { useNavigate } from "react-router-dom";
 import { API_URL } from "../config/config";
+import { BackButton } from "./BackButton";
 
 export function Supermarket() {
   const [products, setProducts] = useState([]);
@@ -80,12 +81,12 @@ export function Supermarket() {
 
   return (
     <div className="supermarket-container">
+      <BackButton />
       <h2 className="text-3xl font-bold text-center mb-8">
         Supermarket Brands
       </h2>
 
       <div className="logo-grid mb-8">
-        {/* Brand Logos for supermarket */}
         <div
           className="logo-item"
           onClick={() => {

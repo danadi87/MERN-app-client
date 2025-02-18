@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "../styles/Payment.css";
 import { API_URL } from "../config/config";
-
+import { BackButton } from "./BackButton";
 export function Payment() {
   useEffect(() => {
     const button = document.querySelector("button");
@@ -41,6 +41,7 @@ export function Payment() {
 
   return (
     <form onSubmit={handleSubmit}>
+      <BackButton />
       <button type="submit" disabled={!stripe}>
         Pay
       </button>
