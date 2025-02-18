@@ -3,6 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import "../styles/ModifyProduct.css";
 import { BackButton } from "./BackButton";
+import { API_URL } from "../config/config";
 
 export const ModifyProduct = () => {
   const { productId } = useParams();
@@ -18,7 +19,7 @@ export const ModifyProduct = () => {
   useEffect(() => {
     console.log("Fetching product details for modification:", productId);
     axios
-      .get(`http://localhost:5005/api/products/${productId}`)
+      .get(`${API_URL}/api/products/${productId}`)
       .then((response) => {
         console.log("Product data fetched:", response.data);
         setProduct(response.data);
@@ -37,7 +38,7 @@ export const ModifyProduct = () => {
     console.log("Updating product with data:", product);
 
     axios
-      .put(`http://localhost:5005/api/products/${productId}`, product)
+      .put(`${API_URL}/api/products/${productId}`, product)
       .then(() => {
         console.log("Product successfully updated");
         alert("Product updated successfully!");

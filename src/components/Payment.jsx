@@ -1,50 +1,32 @@
-import React, { useState, useEffect } from "react";
-import "../styles/Payment.css";
-import { API_URL } from "../config/config";
-import { BackButton } from "./BackButton";
+import React from "react";
+
 export function Payment() {
-  useEffect(() => {
-    const button = document.querySelector("button");
-    button.addEventListener("click", () => {
-      fetch("checkout", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/JSON",
-        },
-        body: JSON.stringify(),
-      })
-        .then((res) => {
-          if (res.ok) return res.json();
-          return res.json().then((json) => Promise.reject(json));
-        })
-        .then(({ url }) => {
-          console.log(url);
-          //window.location = url;
-        })
-        .catch((e) => {
-          console.error(e.error);
-        });
-    });
-
-    fetch(`${API_URL}/payment/create-payment-intent"`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ amount: 5000, currency: "usd" }),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        console.log("Received clientSecret:", data.clientSecret);
-        setClientSecret(data.clientSecret);
-      })
-      .catch((error) => console.error("Error fetching clientSecret:", error));
-  }, []);
-
   return (
-    <form onSubmit={handleSubmit}>
-      <BackButton />
-      <button type="submit" disabled={!stripe}>
-        Pay
-      </button>
-    </form>
+    <>
+      <h1>Add a card</h1>
+      <p>
+        This card will be set as your default payment method for your future
+        orders
+      </p>
+      <form>
+        <label>Name on card</label>
+        <input type="text" placeholder="John Smith"></input>
+        <label>Card number</label>
+        <input type="text" placeholder="4242 4242 4242 4242"></input>
+        <label>Expiration date</label>
+        <input type="text" placeholder="MM/YY"></input>
+        <label>CVC</label>
+        <input type="number" placeholder="CVC"></input>
+        <label>Country</label>
+        <input type="text" placeholder="Country"></input>
+        <label>Postal code</label>
+        <input type="text" placeholder="10018"></input>
+      </form>
+      <button>Save and pay</button>
+      <p>
+        By continuing, you have read and accept the Terms and Conditions and
+        Privay Policy
+      </p>
+    </>
   );
 }
