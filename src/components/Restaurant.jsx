@@ -80,8 +80,7 @@ export function Restaurant() {
 
   const handleDelete = (product) => {
     console.log("Deleting product:", product);
-    deleteProduct(product._id); // Call the delete function from context
-    // After deleting, we need to update the product list in the state
+    deleteProduct(product._id);
     setProducts((prevProducts) =>
       prevProducts.filter((item) => item._id !== product._id)
     );

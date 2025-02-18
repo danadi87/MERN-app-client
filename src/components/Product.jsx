@@ -55,6 +55,7 @@ export function Product() {
           <p>{product.category}</p>
           <p>
             <strong>{product.amount}€</strong>
+            <p>{product.brand}</p>
           </p>
           <div className="buttons">
             <Link to={`/favorites`}>

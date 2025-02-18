@@ -35,18 +35,3 @@ footer {
 * {
   box-sizing: border-box;
 }
-
-.favorites,
-.profile,
-.cart {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  min-height: 100vh;
-}
-
-.favorites .list,
-.profile .list,
-.cart .list {
-  flex-grow: 1;
-}
