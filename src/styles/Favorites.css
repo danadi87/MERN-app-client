@@ -73,3 +73,8 @@
   background-color: white;
   color: darkorange;
 }
+.cart {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+}
