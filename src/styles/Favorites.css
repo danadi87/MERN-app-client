@@ -8,7 +8,11 @@
   gap: 20px;
   margin: 20px;
 }
-
+.cart {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+}
 .favoriteItemCard {
   display: flex;
   align-items: center;
@@ -72,13 +76,4 @@
 .favoriteItemCard:hover .favorites-list {
   background-color: white;
   color: darkorange;
-}
-<<<<<<< HEAD
-
-=======
->>>>>>> 8295917eaf7cb1bb3d2579101f3400e7b6c9259f
-.cart {
-  width: 24px;
-  height: 24px;
-  object-fit: contain;
 }

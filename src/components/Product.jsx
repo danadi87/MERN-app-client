@@ -9,6 +9,7 @@ import heartIcon from "../assets/heart.png";
 import cartIcon from "../assets/cart.png";
 import { API_URL } from "../config/config";
 import { BackButton } from "./BackButton";
+
 export function Product() {
   const [product, setProduct] = useState(null);
   const { id } = useParams();
