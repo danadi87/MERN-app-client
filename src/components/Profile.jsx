@@ -4,14 +4,20 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import "../styles/Profile.css";
 import { API_URL } from "../config/config";
+import { useNavigate } from "react-router-dom";
 import { BackButton } from "./BackButton";
+
 export function Profile() {
   const { user, setUser } = useContext(AuthContext);
   console.log("User object:", user);
   const [address, setAddress] = useState("");
   const [images, setImages] = useState(null);
+  const navigate = useNavigate();
+  const [deleteInput, setDeleteInput] = useState("");
+  const [showDeleteInput, setShowDeleteInput] = useState(false);
 
   const handleAddress = (e) => setAddress(e.target.value);
+
   async function handleImages(e) {
     e.preventDefault();
     const myFormData = new FormData();
@@ -37,6 +43,33 @@ export function Profile() {
     }
   }
   if (!user) return <p>Loading...</p>;
+
+  const handleDeleteClick = () => {
+    setShowDeleteInput(true);
+  };
+
+  const handleDeleteAccount = async (e) => {
+    e.preventDefault();
+    if (deleteInput !== "DELETE") {
+      alert("You must type DELETE to confirm.");
+      return;
+    }
+    try {
+      await axios.delete(`${API_URL}/auth/users/:${user._id}`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+        },
+      });
+
+      alert("Your account has been deleted.");
+      setUser(null);
+      console.log("Navigating to signup...");
+      navigate("/signup");
+    } catch (error) {
+      console.error("Error deleting account:", error);
+      alert("Something went wrong. Please try again.");
+    }
+  };
 
   return (
     <div className="profile-container">
@@ -77,6 +110,24 @@ export function Profile() {
           <button className="payment">
             <Link to={"/payment"}>Add a payment method</Link>
           </button>
+
+          <button className="delete-profile" onClick={handleDeleteClick}>
+            Delete my account
+          </button>
+          {showDeleteInput && (
+            <form onSubmit={handleDeleteAccount}>
+              <p>
+                Type <strong>DELETE</strong> to confirm account deletion:
+              </p>
+              <input
+                type="text"
+                value={deleteInput}
+                onChange={(e) => setDeleteInput(e.target.value)}
+                placeholder="Type DELETE"
+              />
+              <button type="submit">Delete</button>
+            </form>
+          )}
         </div>
       </form>
     </div>

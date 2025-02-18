@@ -1,9 +1,5 @@
 .favorites {
   text-align: center;
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-  justify-content: flex-start;
 }
 
 .list {
@@ -11,7 +7,6 @@
   flex-direction: column;
   gap: 20px;
   margin: 20px;
-  flex-grow: 1;
 }
 
 .favoriteItemCard {
@@ -63,12 +58,6 @@
   background-color: lightblue;
 }
 
-.heart {
-  width: 24px;
-  height: 24px;
-  object-fit: contain;
-}
-
 .favoriteItemCard:hover {
   background-color: darkorange;
   color: white;
@@ -84,7 +73,10 @@
   background-color: white;
   color: darkorange;
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> 8295917eaf7cb1bb3d2579101f3400e7b6c9259f
 .cart {
   width: 24px;
   height: 24px;
