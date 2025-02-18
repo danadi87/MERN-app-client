@@ -97,8 +97,9 @@ export function Payment() {
           placeholder="10018"
           required
         ></input>
+        <button type="submit">Save and pay</button>
       </form>
-      <button type="submit">Save and pay</button>
+
       <p>
         By continuing, you have read and accept the Terms and Conditions and
         Privay Policy
