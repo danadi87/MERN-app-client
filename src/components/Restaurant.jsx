@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useState, useContext } from "react";
 import axios from "axios";
 import "../styles/Restaurant.css";
 import mcdonaldsLogo from "../assets/mcdonalds.png";
@@ -7,51 +7,45 @@ import telepizzaLogo from "../assets/telepizza.png";
 import heartIcon from "../assets/heart.png";
 import FavoritesContext from "../context/favorites.context";
 import ShoppingCartContext from "../context/shoppingCart.context";
-import { useNavigate } from "react-router-dom";
 import DeleteContext from "../context/delete.context";
-import { AuthContext } from "../context/auth.context";
+import { useNavigate } from "react-router-dom";
 import { API_URL } from "../config/config";
 import { BackButton } from "./BackButton";
 
 export function Restaurant() {
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
-  const [showContent, setShowContent] = useState(true);
   const [minPrice, setMinPrice] = useState("");
   const [maxPrice, setMaxPrice] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
-  const [showProducts, setShowProducts] = useState(false);
-
+  const [showContent, setShowContent] = useState(true);
   const { addFavorite } = useContext(FavoritesContext);
   const { addToCart } = useContext(ShoppingCartContext);
   const { deleteProduct } = useContext(DeleteContext);
-  const { user } = useContext(AuthContext);
   const navigate = useNavigate();
-  console.log(user);
 
-  const handleBrandClick = (brand) => {
-    console.log(`Fetching products for: ${brand}`);
-    setShowContent(false);
-    setShowProducts(false);
-
+  const fetchRestaurantProducts = (brand) => {
+    console.log(`Fetching products for ${brand}...`);
     axios
-      .get(
-        `${API_URL}/api/products?category=Restaurant&brand=${encodeURIComponent(
-          brand
-        )}`
-      )
+      .get(`${API_URL}/api/products?category=Restaurant&brand=${brand}`)
       .then((response) => {
-        console.log("Products received from API: ", response.data);
+        console.log("Products fetched:", response.data);
         setProducts(response.data);
         setFilteredProducts(response.data);
-        setShowProducts(true);
+        setShowContent(false);
       })
       .catch((error) => {
         console.error("Error fetching restaurant products:", error);
       });
   };
 
+  const handleBrandClick = (brand) => {
+    console.log(`Brand clicked: ${brand}`);
+    fetchRestaurantProducts(brand);
+  };
+
   const handleFilter = () => {
+    console.log("Filtering products...");
     let filtered = products;
 
     if (minPrice) {
@@ -75,25 +69,32 @@ export function Restaurant() {
       );
     }
 
+    console.log("Filtered products:", filtered);
     setFilteredProducts(filtered);
   };
 
-  const handleDelete = (product) => {
-    console.log("Deleting product:", product);
-    deleteProduct(product._id);
-    setProducts((prevProducts) =>
-      prevProducts.filter((item) => item._id !== product._id)
-    );
-    setFilteredProducts((prevFilteredProducts) =>
-      prevFilteredProducts.filter((item) => item._id !== product._id)
-    );
-  };
-
-  const handleGoToCart = () => {
+  const handleAddToCart = (product) => {
+    console.log("Adding to cart:", product);
+    addToCart(product);
     navigate("/cart");
   };
 
+  const handleDelete = (e, product) => {
+    e.stopPropagation();
+    console.log("Deleting product:", product._id);
+    deleteProduct(product._id);
+
+    setFilteredProducts((prevProducts) =>
+      prevProducts.filter((p) => p._id !== product._id)
+    );
+    setProducts((prevProducts) =>
+      prevProducts.filter((p) => p._id !== product._id)
+    );
+    console.log("Updated filteredProducts:", filteredProducts);
+  };
+
   const handleProductClick = (productId) => {
+    console.log("Product clicked, navigating to:", productId);
     navigate(`/product-details/${productId}`);
   };
 
@@ -108,51 +109,40 @@ export function Restaurant() {
           onClick={() => handleBrandClick("McDonald's")}
         >
           <img src={mcdonaldsLogo} alt="McDonald's" />
-          <p className="logo-text">Click on the logo to see products</p>
+          <p className="logo-text">
+            Click on the logo to see McDonald's products
+          </p>
         </div>
         <div
           className="logo-item"
           onClick={() => handleBrandClick("Burger King")}
         >
           <img src={burgerKingLogo} alt="Burger King" />
-          <p className="logo-text">Click on the logo to see products</p>
+          <p className="logo-text">
+            Click on the logo to see Burger King products
+          </p>
         </div>
         <div
           className="logo-item"
           onClick={() => handleBrandClick("Telepizza")}
         >
           <img src={telepizzaLogo} alt="Telepizza" />
-          <p className="logo-text">Click on the logo to see products</p>
+          <p className="logo-text">
+            Click on the logo to see Telepizza products
+          </p>
         </div>
       </div>
 
       {showContent && (
         <div className="brand-content text-center mb-8">
           <p className="text-lg">
-            Choose your preferred brand, anything that you like is here in
-            AllInOneClick!
+            Choose your preferred restaurant brand to see the available
+            products.
           </p>
-          <p className="mt-4 text-md">
-            We offer the best deals from top restaurant brands:
-          </p>
-          <ul className="list-disc mt-4 text-sm">
-            <li>
-              <strong>McDonald's:</strong> Enjoy fast food with burgers, fries,
-              and more!
-            </li>
-            <li>
-              <strong>Burger King:</strong> Have it your way with a variety of
-              delicious burgers!
-            </li>
-            <li>
-              <strong>Telepizza:</strong> Satisfy your pizza cravings with hot,
-              fresh pizzas!
-            </li>
-          </ul>
         </div>
       )}
 
-      {showProducts && (
+      {products.length > 0 && (
         <>
           <div className="filter-form">
             <h2 className="text-xl font-bold mt-8 mb-4">Filter Products</h2>
@@ -207,10 +197,7 @@ export function Restaurant() {
                   <p className="price">{product.amount}€</p>
                   <div className="button-container">
                     <button
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        addFavorite(product);
-                      }}
+                      onClick={() => addFavorite(product)}
                       className="favorite-button"
                     >
                       <img
@@ -223,36 +210,29 @@ export function Restaurant() {
                     <button
                       onClick={(e) => {
                         e.stopPropagation();
-                        addToCart(product);
+                        handleAddToCart(product);
                       }}
                       className="cart-button"
                     >
                       🛒
                     </button>
 
-                    {user.admin ? (
-                      <button
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          handleDelete(product);
-                        }}
-                        className="delete-button"
-                      >
-                        ❌
-                      </button>
-                    ) : null}
+                    <button
+                      onClick={(e) => handleDelete(e, product)}
+                      className="delete-button"
+                    >
+                      ❌
+                    </button>
 
-                    {user.admin ? (
-                      <button
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          navigate(`/modify-product/${product._id}`);
-                        }}
-                        className="modify-button"
-                      >
-                        🖊
-                      </button>
-                    ) : null}
+                    <button
+                      onClick={(event) => {
+                        event.stopPropagation();
+                        navigate(`/modify-product/${product._id}`);
+                      }}
+                      className="modify-button"
+                    >
+                      🖊
+                    </button>
                   </div>
                 </div>
               ))
@@ -260,15 +240,6 @@ export function Restaurant() {
           </div>
         </>
       )}
-
-      <div className="go-to-cart-container text-center mt-8">
-        <button
-          onClick={handleGoToCart}
-          className="go-to-cart-button bg-green-500 text-white px-6 py-2 rounded"
-        >
-          Go to Cart
-        </button>
-      </div>
     </div>
   );
 }

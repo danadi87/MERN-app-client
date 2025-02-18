@@ -11,6 +11,7 @@ const ADD_PROD = {
   title: "",
   description: "",
   amount: "",
+  brand: "",
 };
 
 export function AddProduct() {
@@ -22,6 +23,7 @@ export function AddProduct() {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [amount, setAmount] = useState("");
+  const [brand, setBrand] = useState("");
 
   const navigate = useNavigate();
 
@@ -34,7 +36,7 @@ export function AddProduct() {
   const handleAddProductSubmit = (e) => {
     e.preventDefault();
 
-    const requestBody = { category, image, title, description, amount };
+    const requestBody = { category, image, title, description, amount, brand };
     console.log("Sending request body", requestBody);
 
     setSubmitting(true);
@@ -47,7 +49,9 @@ export function AddProduct() {
         setTitle("");
         setDescription("");
         setAmount("");
+        setBrand("");
         setSubmitting(false);
+        alert("Product added successfully!");
         navigate("/");
       })
       .catch((error) => {
@@ -119,6 +123,17 @@ export function AddProduct() {
           disabled={submitting}
           autoComplete="off"
         />
+        <label className="label">Brand</label>
+        <input
+          type="text"
+          name="brand"
+          id="brand"
+          value={brand}
+          onChange={(e) => setBrand(e.target.value)}
+          disabled={submitting}
+          autoComplete="off"
+        />
+
         <button type="submit">Create Product</button>
       </form>
       {errorMessage && <p className="error-message">{errorMessage}</p>}
