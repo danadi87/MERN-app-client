@@ -1,10 +1,11 @@
 // Contact.jsx
 import React from "react";
 import "../styles/Contact.css"; // Ensure this matches your folder structure
-
+import { BackButton } from "./BackButton";
 export function Contact() {
   return (
     <div className="contact">
+      <BackButton />
       <h1>Contact Us</h1>
       <p>
         We'd love to hear from you! You can reach us through the following

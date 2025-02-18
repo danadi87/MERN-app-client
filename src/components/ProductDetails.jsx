@@ -4,6 +4,7 @@ import axios from "axios";
 import "../styles/ProductDetails.css";
 import ShoppingCartContext from "../context/shoppingCart.context";
 import { API_URL } from "../config/config";
+import { BackButton } from "./BackButton";
 
 export function ProductDetails() {
   const { productId } = useParams();
@@ -31,13 +32,14 @@ export function ProductDetails() {
   };
 
   const handleModifyProduct = (event) => {
-    event.stopPropagation(); // Prevents unintended navigation
+    event.stopPropagation();
     console.log("Navigating to modify product page for ID:", productId);
     navigate(`/modify-product/${productId}`);
   };
 
   return (
     <div className="product-details-container">
+      <BackButton />
       {product ? (
         <>
           <div className="product-details">

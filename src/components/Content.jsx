@@ -1,18 +1,13 @@
 import React from "react";
 import "../styles/Content.css";
-
+import { BackButton } from "./BackButton";
 const Content = () => {
   return (
     <div className="content-wrapper">
+      <BackButton />
       <div className="hero-section"></div>
 
       <div className="text-section">
-        {/* <h2 className="section-title">What is AllInOneClick?</h2>
-        <p className="section-text">
-          AllInOneClick is your go-to platform for ordering products from your
-          favorite supermarkets, pharmacies, and restaurants—all without leaving
-          the comfort of your home.
-        </p> */}
         <p className="section-text">
           With AllInOneClick, we aim to bring you the best products and services
           right to your doorstep. Whether you're in the mood for a pharmacy

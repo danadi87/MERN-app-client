@@ -1,8 +1,10 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "../styles/Signup.css";
+import { BackButton } from "./BackButton";
+import { Spinner } from "./Spinner";
+import { API_URL } from "../config/config";
 
 const SIGNUP_FORM = {
   email: "",
@@ -46,13 +48,15 @@ export function Signup() {
         setName("");
         setAdmin(false);
         setProfileImage([]);
-        setSubmitting(false);
         navigate("/login");
       })
       .catch((error) => {
         console.log(error);
         const errorDescription = error.response.data.message;
         setErrorMessage(errorDescription);
+      })
+      .finally(() => {
+        setSubmitting(false); // Stop loading after request
       });
   };
 
@@ -62,6 +66,7 @@ export function Signup() {
 
   return (
     <div className="signup">
+      <BackButton />
       <form onSubmit={handleSignupSubmit}>
         <h1>Sign in</h1>
         <label className="label">Email</label>
@@ -100,15 +105,14 @@ export function Signup() {
           name="admin"
           id="admin"
           checked={admin}
-          onChange={(e) => {
-            console.log(e.target.checked);
-            setAdmin(e.target.checked);
-          }}
+          onChange={(e) => setAdmin(e.target.checked)}
           disabled={submitting}
           autoComplete="off"
         />
 
-        <button type="submit">Create Account</button>
+        <button type="submit" disabled={submitting}>
+          {submitting ? <Spinner /> : "Create Account"}
+        </button>
       </form>
       {errorMessage && <p className="error-message">{errorMessage}</p>}
       <p>Already have an account?</p>

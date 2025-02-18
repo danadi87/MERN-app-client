@@ -10,7 +10,7 @@ import FavoritesContext from "../context/favorites.context";
 import DeleteContext from "../context/delete.context";
 import { useNavigate } from "react-router-dom";
 import { API_URL } from "../config/config";
-
+import { BackButton } from "./BackButton";
 export function Pharmacy() {
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
@@ -95,6 +95,7 @@ export function Pharmacy() {
 
   return (
     <div className="container">
+      <BackButton />
       <h1 className="text-3xl font-bold text-center mb-8">Pharmacy Brands</h1>
 
       <div className="logo-grid">

@@ -5,6 +5,7 @@ import axios from "axios";
 import "../styles/Profile.css";
 import { API_URL } from "../config/config";
 import { useNavigate } from "react-router-dom";
+import { BackButton } from "./BackButton";
 
 export function Profile() {
   const { user, setUser } = useContext(AuthContext);
@@ -72,6 +73,7 @@ export function Profile() {
 
   return (
     <div className="profile-container">
+      <BackButton />
       <h1>Welcome {user.name}!</h1>
       <h3>Account details</h3>
       {user?.profileImage && (

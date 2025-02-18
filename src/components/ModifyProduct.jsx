@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import "../styles/ModifyProduct.css";
+import { BackButton } from "./BackButton";
 
 export const ModifyProduct = () => {
   const { productId } = useParams();
@@ -49,6 +50,7 @@ export const ModifyProduct = () => {
 
   return (
     <div className="modify-product-container">
+      <BackButton />
       <h2 className="modify-product-title">Modify Product</h2>
 
       {product.image && (
