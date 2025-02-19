@@ -57,7 +57,9 @@ function AuthProviderWrapper(props) {
 
   const logOutUser = () => {
     removeToken();
-    authenticateUser();
+    setIsLoggedIn(false);
+    setUser(null);
+    setIsAdmin(false);
   };
 
   useEffect(() => {
