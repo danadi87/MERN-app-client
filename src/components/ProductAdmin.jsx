@@ -1,7 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-//import "../styles/ProductAdmin.css";
-import "../styles/test.css";
+import "../styles/ProductAdmin.css";
 
 export function ProductAdmin() {
   return (
