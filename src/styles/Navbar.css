@@ -1,13 +1,16 @@
 .navbar {
-  position: sticky;
+  position: fixed;
   top: 0;
+  left: 0;
+  z-index: 1000;
+  width: 100%;
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
   align-items: center;
   border: 1px solid darkorange;
   background-color: white;
-  padding: 0 20px;
+  margin-right: 5px;
 }
 #navbar-top {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25);

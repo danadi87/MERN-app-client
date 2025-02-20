@@ -7,7 +7,7 @@
   justify-content: space-between;
   align-items: center;
   background-color: white;
-  padding: 10px 20px;
+  padding: 0px 20px;
   border-top: 1px solid darkorange;
   box-sizing: border-box;
   width: 100%;
@@ -32,7 +32,6 @@
   font-size: 1.1rem;
   font-weight: bold;
   color: black;
-  margin-bottom: 10px;
 }
 
 .footer-links-horizontal {
@@ -45,7 +44,6 @@
   color: darkorange;
   font-weight: bold;
   display: block;
-  margin-bottom: 5px;
 }
 
 .footer-link:hover {
@@ -58,7 +56,7 @@
 
 .footer-bottom {
   text-align: center;
-  padding-top: 10px;
+  padding-top: 5px;
 }
 
 .footer-bottom p {
