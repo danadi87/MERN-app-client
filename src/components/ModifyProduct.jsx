@@ -42,7 +42,7 @@ export const ModifyProduct = () => {
       .then((response) => {
         console.log("Product successfully created:", response.data);
         alert("Product updated (new product created)!");
-        navigate(`/product-details/${response.data._id}`); // Redirect to see updated product
+        navigate(`/product-details/${response.data._id}`);
       })
       .catch((error) => {
         console.error(

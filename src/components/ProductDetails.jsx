@@ -5,13 +5,11 @@ import "../styles/ProductDetails.css";
 import ShoppingCartContext from "../context/shoppingCart.context";
 import { API_URL } from "../config/config";
 import { BackButton } from "./BackButton";
-
 export function ProductDetails() {
   const { productId } = useParams();
   const [product, setProduct] = useState(null);
   const { addToCart } = useContext(ShoppingCartContext);
   const navigate = useNavigate();
-
   useEffect(() => {
     console.log("Fetching product details for ID:", productId);
     axios
@@ -24,19 +22,16 @@ export function ProductDetails() {
         console.error("Error fetching product details:", error);
       });
   }, [productId]);
-
   const handleAddToCart = (product) => {
     console.log("Adding to cart:", product);
     addToCart(product);
     navigate("/cart");
   };
-
   const handleModifyProduct = (event) => {
     event.stopPropagation();
     console.log("Navigating to modify product page for ID:", productId);
     navigate(`/modify-product/${productId}`);
   };
-
   return (
     <div className="product-details-container">
       <BackButton />

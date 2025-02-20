@@ -1,7 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "../styles/ProductAdmin.css";
-
 export function ProductAdmin() {
   return (
     <div className="product-admin-container">
@@ -10,11 +9,9 @@ export function ProductAdmin() {
         <Link to="/add-product" className="product-buttons">
           Add a Product
         </Link>
-
-        <Link to="/modify-product/:productId" className="product-buttons">
+        <Link to="/modify-all-products" className="product-buttons">
           Modify a Product
         </Link>
-
         <Link to="/delete-product" className="product-buttons">
           Delete a Product
         </Link>

@@ -28,6 +28,7 @@ import { ModifyProduct } from "./components/ModifyProduct";
 import { API_URL } from "./config/config";
 import { ProductAdmin } from "./components/ProductAdmin";
 import { DeleteProduct } from "./components/DeleteProduct";
+import { ModifyAllProducts } from "./components/ModifyAllProducts";
 
 const api = axios.create({
   baseURL: `${API_URL}`,
@@ -124,6 +125,7 @@ export default function App() {
             path="/modify-product/:productId"
             element={<ModifyProduct />}
           />
+          <Route path="/modify-all-products" element={<ModifyAllProducts />} />
           <Route
             path="/product-details/:productId"
             element={<ProductDetails />}
