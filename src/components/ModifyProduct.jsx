@@ -37,11 +37,13 @@ export const ModifyProduct = () => {
     event.preventDefault();
     console.log("Updating product with data:", product);
 
-    // Remove _id before sending the request
-    const { _id, ...updatedProduct } = product;
+    const updatedProduct = {
+      ...product,
+      amount: Number(product.amount), // Ensure amount is a number
+    };
 
     axios
-      .post(`${API_URL}/api/products`, updatedProduct) // Changed from PUT to POST
+      .put(`${API_URL}/api/products/${productId}`, updatedProduct) // Changed back to PUT
       .then(() => {
         console.log("Product successfully updated");
         alert("Product updated successfully!");
