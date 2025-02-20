@@ -25,13 +25,17 @@ export function Restaurant() {
   const navigate = useNavigate();
 
   const fetchRestaurantProducts = (brand) => {
-    console.log(`Fetching products for ${brand}...`);
+    console.log("Fetching products for category Restaurant");
     axios
-      .get(`${API_URL}/api/products?category=Restaurant&brand=${brand}`)
+      .get(`${API_URL}/api/products?category=Restaurant`)
       .then((response) => {
         console.log("Products fetched:", response.data);
+        const filtered = response.data.filter(
+          (product) => product.brand === brand
+        );
+        console.log("Filtered products for", brand, ":", filtered);
         setProducts(response.data);
-        setFilteredProducts(response.data);
+        setFilteredProducts(filtered);
         setShowContent(false);
       })
       .catch((error) => {
@@ -40,26 +44,23 @@ export function Restaurant() {
   };
 
   const handleBrandClick = (brand) => {
-    console.log(`Brand clicked: ${brand}`);
+    console.log("Brand clicked:", brand);
     fetchRestaurantProducts(brand);
   };
 
   const handleFilter = () => {
     console.log("Filtering products...");
     let filtered = products;
-
     if (minPrice) {
       filtered = filtered.filter(
         (product) => parseFloat(product.amount) >= parseFloat(minPrice)
       );
     }
-
     if (maxPrice) {
       filtered = filtered.filter(
         (product) => parseFloat(product.amount) <= parseFloat(maxPrice)
       );
     }
-
     if (searchTerm.trim()) {
       const lowerCaseTerm = searchTerm.toLowerCase();
       filtered = filtered.filter(
@@ -68,8 +69,7 @@ export function Restaurant() {
           product.description.toLowerCase().includes(lowerCaseTerm)
       );
     }
-
-    console.log("Filtered products:", filtered);
+    console.log("Filtered products after search/price:", filtered);
     setFilteredProducts(filtered);
   };
 
@@ -83,13 +83,8 @@ export function Restaurant() {
     e.stopPropagation();
     console.log("Deleting product:", product._id);
     deleteProduct(product._id);
-
-    setFilteredProducts((prevProducts) =>
-      prevProducts.filter((p) => p._id !== product._id)
-    );
-    setProducts((prevProducts) =>
-      prevProducts.filter((p) => p._id !== product._id)
-    );
+    setFilteredProducts((prev) => prev.filter((p) => p._id !== product._id));
+    setProducts((prev) => prev.filter((p) => p._id !== product._id));
     console.log("Updated filteredProducts:", filteredProducts);
   };
 
@@ -102,37 +97,35 @@ export function Restaurant() {
     <div className="restaurant-container">
       <BackButton />
       <h1 className="text-3xl font-bold text-center mb-8">Restaurant Brands</h1>
-
       <div className="logo-grid mb-8">
         <div
           className="logo-item"
-          onClick={() => handleBrandClick("McDonald's")}
+          onClick={() => handleBrandClick("mcdonalds")}
         >
-          <img src={mcdonaldsLogo} alt="McDonald's" />
+          <img src={mcdonaldsLogo} alt="mcdonalds" />
           <p className="logo-text">
-            Click on the logo to see McDonald's products
+            Click on the logo to see mcdonalds products
           </p>
         </div>
         <div
           className="logo-item"
-          onClick={() => handleBrandClick("Burger King")}
+          onClick={() => handleBrandClick("burgerKing")}
         >
-          <img src={burgerKingLogo} alt="Burger King" />
+          <img src={burgerKingLogo} alt="burgerKing" />
           <p className="logo-text">
-            Click on the logo to see Burger King products
+            Click on the logo to see burgerKing products
           </p>
         </div>
         <div
           className="logo-item"
-          onClick={() => handleBrandClick("Telepizza")}
+          onClick={() => handleBrandClick("telepizza")}
         >
-          <img src={telepizzaLogo} alt="Telepizza" />
+          <img src={telepizzaLogo} alt="telepizza" />
           <p className="logo-text">
-            Click on the logo to see Telepizza products
+            Click on the logo to see telepizza products
           </p>
         </div>
       </div>
-
       {showContent && (
         <div className="brand-content text-center mb-8">
           <p className="text-lg">
@@ -141,7 +134,6 @@ export function Restaurant() {
           </p>
         </div>
       )}
-
       {products.length > 0 && (
         <>
           <div className="filter-form">
@@ -176,7 +168,6 @@ export function Restaurant() {
               </button>
             </div>
           </div>
-
           <div className="product-grid">
             {filteredProducts.length === 0 ? (
               <p>No products match the filter criteria.</p>
@@ -206,7 +197,6 @@ export function Restaurant() {
                         className="favorite-icon"
                       />
                     </button>
-
                     <button
                       onClick={(e) => {
                         e.stopPropagation();
@@ -216,14 +206,12 @@ export function Restaurant() {
                     >
                       🛒
                     </button>
-
                     <button
                       onClick={(e) => handleDelete(e, product)}
                       className="delete-button"
                     >
                       ❌
                     </button>
-
                     <button
                       onClick={(event) => {
                         event.stopPropagation();

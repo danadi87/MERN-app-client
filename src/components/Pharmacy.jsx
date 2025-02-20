@@ -11,6 +11,7 @@ import DeleteContext from "../context/delete.context";
 import { useNavigate } from "react-router-dom";
 import { API_URL } from "../config/config";
 import { BackButton } from "./BackButton";
+
 export function Pharmacy() {
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
@@ -20,19 +21,24 @@ export function Pharmacy() {
   const [searchTerm, setSearchTerm] = useState("");
   const [showContent, setShowContent] = useState(true);
   const { addToCart } = useContext(ShoppingCartContext);
-  const { favorites, addFavorite } = useContext(FavoritesContext);
+  const { addFavorite } = useContext(FavoritesContext);
   const { deleteProduct } = useContext(DeleteContext);
   const navigate = useNavigate();
 
-  const fetchPharmacyProducts = () => {
-    console.log("Fetching pharmacy products...");
+  const fetchPharmacyProducts = (brand) => {
+    console.log("Fetching pharmacy products for", brand);
     axios
       .get(`${API_URL}/api/products?category=Pharmacy`)
       .then((response) => {
-        console.log("Products fetched:", response.data);
+        console.log("All pharmacy products:", response.data);
+        const filtered = response.data.filter(
+          (product) => product.brand === brand
+        );
+        console.log("Filtered pharmacy products for", brand, ":", filtered);
         setProducts(response.data);
-        setFilteredProducts(response.data);
+        setFilteredProducts(filtered);
         setShowProducts(true);
+        setShowContent(false);
       })
       .catch((error) => {
         console.error("Error fetching pharmacy products:", error);
@@ -40,31 +46,27 @@ export function Pharmacy() {
   };
 
   const handleFilter = () => {
-    console.log("Filtering products...");
+    console.log("Filtering pharmacy products...");
     let filtered = products;
-
     if (minPrice) {
       filtered = filtered.filter(
         (product) => parseFloat(product.amount) >= parseFloat(minPrice)
       );
     }
-
     if (maxPrice) {
       filtered = filtered.filter(
         (product) => parseFloat(product.amount) <= parseFloat(maxPrice)
       );
     }
-
     if (searchTerm.trim()) {
-      const lowerCaseTerm = searchTerm.toLowerCase();
+      const lowerTerm = searchTerm.toLowerCase();
       filtered = filtered.filter(
         (product) =>
-          product.title.toLowerCase().includes(lowerCaseTerm) ||
-          product.description.toLowerCase().includes(lowerCaseTerm)
+          product.title.toLowerCase().includes(lowerTerm) ||
+          product.description.toLowerCase().includes(lowerTerm)
       );
     }
-
-    console.log("Filtered products:", filtered);
+    console.log("Filtered pharmacy products after search/price:", filtered);
     setFilteredProducts(filtered);
   };
 
@@ -76,20 +78,15 @@ export function Pharmacy() {
 
   const handleDelete = (e, product) => {
     e.stopPropagation();
-    console.log("Deleting product:", product._id);
+    console.log("Deleting pharmacy product:", product._id);
     deleteProduct(product._id);
-
-    setFilteredProducts((prevProducts) =>
-      prevProducts.filter((p) => p._id !== product._id)
-    );
-    setProducts((prevProducts) =>
-      prevProducts.filter((p) => p._id !== product._id)
-    );
-    console.log("Updated filteredProducts:", filteredProducts);
+    setFilteredProducts((prev) => prev.filter((p) => p._id !== product._id));
+    setProducts((prev) => prev.filter((p) => p._id !== product._id));
+    console.log("Updated pharmacy filteredProducts:", filteredProducts);
   };
 
   const handleProductClick = (productId) => {
-    console.log("Product clicked, navigating to:", productId);
+    console.log("Pharmacy product clicked, navigating to:", productId);
     navigate(`/product-details/${productId}`);
   };
 
@@ -97,49 +94,49 @@ export function Pharmacy() {
     <div className="container">
       <BackButton />
       <h1 className="text-3xl font-bold text-center mb-8">Pharmacy Brands</h1>
-
       <div className="logo-grid">
         <div
           className="logo-item"
           onClick={() => {
-            fetchPharmacyProducts();
+            fetchPharmacyProducts("cruzVerde");
             setShowContent(false);
           }}
         >
-          <img src={cruzVerdeLogo} alt="Cruz Verde" />
-          <p className="logo-text">Click on the logo to see products</p>
+          <img src={cruzVerdeLogo} alt="cruzVerde" />
+          <p className="logo-text">
+            Click on the logo to see cruzVerde products
+          </p>
         </div>
         <div
           className="logo-item"
           onClick={() => {
-            fetchPharmacyProducts();
+            fetchPharmacyProducts("farmaciaAlfa");
             setShowContent(false);
           }}
         >
-          <img src={farmaciaAlfaLogo} alt="Farmacia Alfa" />
-          <p className="logo-text">Click on the logo to see products</p>
+          <img src={farmaciaAlfaLogo} alt="farmaciaAlfa" />
+          <p className="logo-text">
+            Click on the logo to see farmaciaAlfa products
+          </p>
         </div>
         <div
           className="logo-item"
           onClick={() => {
-            fetchPharmacyProducts();
+            fetchPharmacyProducts("sanitas");
             setShowContent(false);
           }}
         >
-          <img src={sanitasLogo} alt="Sanitas" />
-          <p className="logo-text">Click on the logo to see products</p>
+          <img src={sanitasLogo} alt="sanitas" />
+          <p className="logo-text">Click on the logo to see sanitas products</p>
         </div>
       </div>
-
       {showContent && (
         <div className="brand-content text-center mb-8">
           <p className="text-lg">
-            Choose your preferred pharmacy brand, find all your essential
-            products here at AllInOneClick!
+            Choose your preferred pharmacy brand to see the available products.
           </p>
         </div>
       )}
-
       {showProducts && (
         <>
           <div className="filter-form">
@@ -174,76 +171,59 @@ export function Pharmacy() {
               </button>
             </div>
           </div>
-
           <div className="product-grid">
             {filteredProducts.length === 0 ? (
               <p>No products match the filter criteria.</p>
             ) : (
-              filteredProducts.map((product) => {
-                const isFavorite = favorites.some(
-                  (fav) => fav._id === product._id
-                );
-                return (
-                  <div
-                    key={product._id}
-                    className="product-item"
-                    onClick={() => handleProductClick(product._id)}
-                  >
-                    <img
-                      src={product.image}
-                      alt={product.title}
-                      className="product-img"
-                    />
-                    <h3>{product.title}</h3>
-                    <p>{product.description}</p>
-                    <p className="price">{product.amount}€</p>
-                    <div className="button-container">
-                      <button
-                        onClick={() => addFavorite(product)}
-                        className="favorite-button"
-                      >
-                        {isFavorite ? (
-                          <img
-                            src={heartIcon}
-                            alt="Added to favorites"
-                            className="favorite-icon"
-                          />
-                        ) : (
-                          <img
-                            src={heartIcon}
-                            alt="Add to favorites"
-                            className="favorite-icon"
-                          />
-                        )}
-                      </button>
-                      <button
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          handleAddToCart(product);
-                        }}
-                        className="cart-button"
-                      >
-                        🛒
-                      </button>
-                      <button
-                        onClick={(e) => handleDelete(e, product)}
-                        className="delete-button"
-                      >
-                        ❌
-                      </button>
-                      <button
-                        onClick={(event) => {
-                          event.stopPropagation();
-                          navigate(`/modify-product/${product._id}`);
-                        }}
-                        className="modify-button"
-                      >
-                        🖊
-                      </button>
-                    </div>
+              filteredProducts.map((product) => (
+                <div
+                  key={product._id}
+                  className="product-item"
+                  onClick={() => handleProductClick(product._id)}
+                >
+                  <img
+                    src={product.image}
+                    alt={product.title}
+                    className="product-img"
+                  />
+                  <h3>{product.title}</h3>
+                  <p>{product.description}</p>
+                  <p className="price">{product.amount}€</p>
+                  <div className="button-container">
+                    <button
+                      onClick={() => addFavorite(product)}
+                      className="favorite-button"
+                    >
+                      <img
+                        src={heartIcon}
+                        alt="Add to favorites"
+                        className="favorite-icon"
+                      />
+                    </button>
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleAddToCart(product);
+                      }}
+                      className="cart-button"
+                    >
+                      🛒
+                    </button>
+                    <button
+                      onClick={(e) => handleDelete(e, product)}
+                      className="delete-button"
+                    >
+                      ❌
+                    </button>
+                    <button
+                      onClick={() => navigate(`/modify-product/${product._id}`)}
+                      className="modify-button"
+                    >
+                      🖊
+                    </button>
                   </div>
-                );
-              })
+                </div>
+              ))
             )}
           </div>
         </>

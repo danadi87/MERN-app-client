@@ -5,7 +5,7 @@ import { AuthContext } from "../context/auth.context";
 import logo from "../assets/logo.jpg";
 
 export function Navbar() {
-  const { isLoggedIn, logOutUser } = useContext(AuthContext);
+  const { isLoggedIn, logOutUser, isAdmin } = useContext(AuthContext);
 
   return (
     <div className="navbar" id="navbar-top">
@@ -23,7 +23,8 @@ export function Navbar() {
             <Link to="/profile">My profile</Link>
             <Link to="/favorites">Favorites</Link>
             <Link to="/cart">Shopping cart</Link>
-            <Link to="/product-admin">Product</Link>
+
+            {isAdmin && <Link to="/product-admin">Product</Link>}
             <button onClick={logOutUser} className="logout-button">
               Logout
             </button>

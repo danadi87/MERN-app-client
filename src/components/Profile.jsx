@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { BackButton } from "./BackButton";
 
 export function Profile() {
-  const { user, setUser } = useContext(AuthContext);
+  const { user, setUser, logOutUser } = useContext(AuthContext);
   console.log("User object:", user);
   const [address, setAddress] = useState("");
   const [images, setImages] = useState(null);
@@ -54,20 +54,40 @@ export function Profile() {
       alert("You must type DELETE to confirm.");
       return;
     }
+    console.log("pizza");
     try {
-      await axios.delete(`${API_URL}/auth/users/:${user._id}`, {
+      await axios.delete(`${API_URL}/auth/users/${user._id}`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("authToken")}`,
         },
       });
 
+      localStorage.removeItem("authToken");
+
       alert("Your account has been deleted.");
       setUser(null);
+
+      logOutUser();
+
       console.log("Navigating to signup...");
       navigate("/signup");
     } catch (error) {
-      console.error("Error deleting account:", error);
-      alert("Something went wrong. Please try again.");
+      if (error.response) {
+ 
+        console.error("Error deleting account:", error.response.data);
+        alert("Server error: " + error.response.data.message);
+      } else if (error.request) {
+
+        console.error(
+          "Error deleting account: No response received from server"
+        );
+        alert("Server not responding. Please try again later.");
+      } else {
+
+        console.error("Error deleting account:", error.message);
+        alert("An unexpected error occurred. Please try again.");
+        alert("Something went wrong. Please try again.");
+      }
     }
   };
 
@@ -110,26 +130,25 @@ export function Profile() {
           <button className="payment">
             <Link to={"/payment"}>Add a payment method</Link>
           </button>
-
-          <button className="delete-profile" onClick={handleDeleteClick}>
-            Delete my account
-          </button>
-          {showDeleteInput && (
-            <form onSubmit={handleDeleteAccount}>
-              <p>
-                Type <strong>DELETE</strong> to confirm account deletion:
-              </p>
-              <input
-                type="text"
-                value={deleteInput}
-                onChange={(e) => setDeleteInput(e.target.value)}
-                placeholder="Type DELETE"
-              />
-              <button type="submit">Delete</button>
-            </form>
-          )}
         </div>
       </form>
+      <button className="delete-profile" onClick={handleDeleteClick}>
+        Delete my account
+      </button>
+      {showDeleteInput && (
+        <form onSubmit={handleDeleteAccount}>
+          <p>
+            Type <strong>DELETE</strong> to confirm account deletion:
+          </p>
+          <input
+            type="text"
+            value={deleteInput}
+            onChange={(e) => setDeleteInput(e.target.value)}
+            placeholder="Type DELETE"
+          />
+          <button type="submit">Delete</button>
+        </form>
+      )}
     </div>
   );
 }

@@ -23,12 +23,18 @@ export function Supermarket() {
   const { addFavorite } = useContext(FavoritesContext);
   const navigate = useNavigate();
 
-  const fetchSupermarketProducts = () => {
+  const fetchSupermarketProducts = (brand) => {
     axios
       .get(`${API_URL}/api/products?category=Supermarket`)
       .then((response) => {
-        setProducts(response.data);
-        setFilteredProducts(response.data);
+        console.log("All products:", response.data);
+        const allProducts = response.data;
+        const filtered = allProducts.filter(
+          (product) => product.brand === brand
+        );
+        console.log(`Filtered products for ${brand}:`, filtered);
+        setProducts(allProducts);
+        setFilteredProducts(filtered);
         setShowProducts(true);
       })
       .catch((error) =>
@@ -90,7 +96,7 @@ export function Supermarket() {
         <div
           className="logo-item"
           onClick={() => {
-            fetchSupermarketProducts();
+            fetchSupermarketProducts("Mercadona");
             setShowContent(false);
           }}
         >
@@ -100,7 +106,7 @@ export function Supermarket() {
         <div
           className="logo-item"
           onClick={() => {
-            fetchSupermarketProducts();
+            fetchSupermarketProducts("Lidl");
             setShowContent(false);
           }}
         >
@@ -110,7 +116,7 @@ export function Supermarket() {
         <div
           className="logo-item"
           onClick={() => {
-            fetchSupermarketProducts();
+            fetchSupermarketProducts("Carrefour");
             setShowContent(false);
           }}
         >

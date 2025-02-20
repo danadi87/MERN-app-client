@@ -9,6 +9,7 @@ function AuthProviderWrapper(props) {
   const [isLoading, setIsLoading] = useState(true);
   const [user, setUser] = useState(null);
   const [authError, setAuthError] = useState(null);
+  const [isAdmin, setIsAdmin] = useState(false);
 
   const storeToken = (token) => {
     localStorage.setItem("authToken", token);
@@ -28,6 +29,7 @@ function AuthProviderWrapper(props) {
           setIsLoggedIn(true);
           setIsLoading(false);
           setUser(user);
+          setIsAdmin(user.admin);
         })
         .catch((error) => {
           if (error) {
@@ -55,7 +57,9 @@ function AuthProviderWrapper(props) {
 
   const logOutUser = () => {
     removeToken();
-    authenticateUser();
+    setIsLoggedIn(false);
+    setUser(null);
+    setIsAdmin(false);
   };
 
   useEffect(() => {
@@ -75,6 +79,7 @@ function AuthProviderWrapper(props) {
         authenticateUser,
         logOutUser,
         authError,
+        isAdmin,
       }}
     >
       {props.children}
