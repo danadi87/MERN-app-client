@@ -29,9 +29,10 @@ export function Supermarket() {
       .then((response) => {
         console.log("All products:", response.data);
         const allProducts = response.data;
-        const filtered = allProducts.filter(
-          (product) => product.brand === brand
-        );
+        const filtered = allProducts.filter((product) => {
+          console.log(`Product: ${product.title}, Brand: ${product.brand}`);
+          return product.brand === brand;
+        });
         console.log(`Filtered products for ${brand}:`, filtered);
         setProducts(allProducts);
         setFilteredProducts(filtered);
