@@ -35,23 +35,18 @@ export const ModifyProduct = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log("Updating product with data:", product);
-
-    const updatedProduct = {
-      ...product,
-      amount: Number(product.amount), // Ensure amount is a number
-    };
+    console.log("Creating new product with data:", product);
 
     axios
-      .put(`${API_URL}/api/products/${productId}`, updatedProduct) // Changed back to PUT
-      .then(() => {
-        console.log("Product successfully updated");
-        alert("Product updated successfully!");
-        navigate(`/product-details/${productId}`);
+      .post(`${API_URL}/api/products`, product)
+      .then((response) => {
+        console.log("Product successfully created:", response.data);
+        alert("Product updated (new product created)!");
+        navigate(`/product-details/${response.data._id}`); // Redirect to see updated product
       })
       .catch((error) => {
         console.error(
-          "Error updating product:",
+          "Error creating product:",
           error.response?.data || error.message
         );
       });
