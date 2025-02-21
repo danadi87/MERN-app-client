@@ -1,8 +1,28 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "../styles/Footer.css";
 import { Link } from "react-router-dom";
 
 export function Footer() {
+  useEffect(() => {
+    const footer = document.querySelector(".footer");
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY + window.innerHeight;
+      const documentHeight = document.documentElement.scrollHeight;
+
+      if (scrollPosition >= documentHeight - 10) {
+        footer.classList.add("show-footer");
+      } else {
+        footer.classList.remove("show-footer");
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
   return (
     <footer className="footer" id="footer-bottom">
       <div className="footer-content">

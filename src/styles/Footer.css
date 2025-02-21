@@ -12,6 +12,15 @@
   box-sizing: border-box;
   width: 100%;
   box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.25);
+  visibility: hidden; /* Initially hide the footer */
+  opacity: 0;
+  transition: visibility 0s 0.5s, opacity 0.5s ease-in-out;
+}
+
+.footer.show-footer {
+  visibility: visible; /* Show when scrolling reaches the bottom */
+  opacity: 1;
+  transition: visibility 0s 0s, opacity 0.5s ease-in-out;
 }
 
 .footer-content {
