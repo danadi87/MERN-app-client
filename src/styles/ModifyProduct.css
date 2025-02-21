@@ -62,3 +62,56 @@
 .modify-product-button:hover {
   background: #0056b3;
 }
+
+@media (max-width: 768px) {
+  .modify-product-container {
+    max-width: 90%;
+    margin-top: 100px;
+    margin-bottom: 80px;
+  }
+
+  .modify-product-title {
+    font-size: 20px;
+  }
+
+  .modify-product-image-container {
+    margin-bottom: 12px;
+  }
+
+  .modify-product-image {
+    width: 80px;
+    height: 80px;
+  }
+
+  .modify-product-input {
+    padding: 10px;
+  }
+
+  .modify-product-button {
+    padding: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .modify-product-container {
+    max-width: 90%;
+    padding: 15px;
+  }
+
+  .modify-product-title {
+    font-size: 18px;
+  }
+
+  .modify-product-image {
+    width: 70px;
+    height: 70px;
+  }
+
+  .modify-product-input {
+    padding: 12px;
+  }
+
+  .modify-product-button {
+    padding: 14px;
+  }
+}

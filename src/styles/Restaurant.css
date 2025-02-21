@@ -32,7 +32,6 @@ h1 {
 .logo-grid img:hover {
   transform: scale(1.2);
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
-  transition: transform 0.3s ease, box-shadow 0.3s ease-in-out;
 }
 
 .logo-text {
@@ -156,10 +155,53 @@ h1 {
 @media (max-width: 768px) {
   .product-grid {
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    padding: 0 15px;
   }
 
   .button-container {
     flex-direction: column;
     align-items: flex-start;
+  }
+
+  .logo-grid {
+    gap: 20px;
+  }
+
+  .logo-grid img {
+    width: 100px;
+    height: 100px;
+  }
+
+  .brand-content {
+    width: 100%;
+    margin-top: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  h1 {
+    font-size: 1.6rem;
+  }
+
+  .product-item h3 {
+    font-size: 1.1rem;
+  }
+
+  .product-item p {
+    font-size: 0.9rem;
+  }
+
+  .product-item .price {
+    font-size: 1.1rem;
+  }
+
+  .button-container button {
+    width: 45px;
+    height: 45px;
+  }
+
+  .logo-grid img {
+    width: 90px;
+    height: 90px;
   }
 }

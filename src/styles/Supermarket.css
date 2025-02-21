@@ -79,7 +79,7 @@ h2 {
 .brand-content li {
   margin-bottom: 8px;
 }
-/* Filter Form */
+
 .filter-form {
   margin-top: 20px;
   text-align: center;
@@ -106,4 +106,60 @@ h2 {
   border: none;
   border-radius: 4px;
   cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .logo-grid {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+  }
+
+  .logo-grid img {
+    width: 100px;
+    height: 100px;
+  }
+
+  .brand-content {
+    max-width: 100%;
+    padding: 15px;
+  }
+
+  .filter-controls {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .filter-input {
+    width: 100%;
+    max-width: 300px;
+  }
+
+  .filter-button {
+    width: 100%;
+    max-width: 200px;
+  }
+}
+
+@media (max-width: 480px) {
+  h2 {
+    font-size: 1.2rem;
+  }
+
+  .logo-grid img {
+    width: 80px;
+    height: 80px;
+  }
+
+  .brand-content {
+    padding: 10px;
+  }
+
+  .filter-input,
+  .filter-button {
+    font-size: 0.9rem;
+  }
 }

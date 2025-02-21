@@ -2,3 +2,17 @@
   margin-top: 250px;
   margin-bottom: 250px;
 }
+
+@media (max-width: 768px) {
+  .payment-container {
+    margin-top: 150px;
+    margin-bottom: 150px;
+  }
+}
+
+@media (max-width: 480px) {
+  .payment-container {
+    margin-top: 100px;
+    margin-bottom: 100px;
+  }
+}

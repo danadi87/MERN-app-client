@@ -12,3 +12,19 @@
 .back-button:hover {
   background-color: #2980b9;
 }
+
+@media (max-width: 768px) {
+  .back-button {
+    padding: 8px 14px;
+    font-size: 14px;
+    margin: 8px;
+  }
+}
+
+@media (max-width: 480px) {
+  .back-button {
+    padding: 8px 12px;
+    font-size: 12px;
+    margin: 5px;
+  }
+}

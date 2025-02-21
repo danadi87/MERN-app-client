@@ -7,8 +7,10 @@
   margin-top: 150px;
   margin-bottom: 150px;
 }
+
 .profile-container h1 {
   align-items: center;
+  font-size: 2rem;
 }
 
 .profile-container form {
@@ -23,7 +25,18 @@
 .profile-container .image-upload button {
   padding: 5px 10px;
   cursor: pointer;
+  border: none;
+  background-color: #007bff;
+  color: white;
+  font-weight: bold;
+  border-radius: 4px;
+  transition: background-color 0.3s;
 }
+
+.profile-container .image-upload button:hover {
+  background-color: #0056b3;
+}
+
 .profile-details {
   display: flex;
   flex-direction: column;
@@ -31,12 +44,58 @@
   align-items: center;
   width: 100%;
 }
+
 .image-upload {
   display: flex;
   flex-direction: column;
   gap: 20px;
 }
+
 .sub-title {
   font-size: 40px;
   font-weight: 1000;
+  text-align: center;
+}
+
+@media (max-width: 768px) {
+  .profile-container {
+    margin-top: 80px;
+    margin-bottom: 80px;
+  }
+
+  .profile-container h1 {
+    font-size: 1.5rem;
+  }
+
+  .profile-details {
+    width: 80%;
+  }
+
+  .sub-title {
+    font-size: 30px;
+  }
+}
+
+@media (max-width: 480px) {
+  .profile-container {
+    margin-top: 60px;
+    margin-bottom: 60px;
+  }
+
+  .profile-container h1 {
+    font-size: 1.2rem;
+  }
+
+  .sub-title {
+    font-size: 24px;
+  }
+
+  .profile-details {
+    width: 90%;
+  }
+
+  .image-upload button {
+    padding: 8px 16px;
+    font-size: 1rem;
+  }
 }

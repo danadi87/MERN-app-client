@@ -10,11 +10,13 @@
   gap: 20px;
   margin: 20px;
 }
+
 .cart {
   width: 24px;
   height: 24px;
   object-fit: contain;
 }
+
 .favoriteItemCard {
   display: flex;
   align-items: center;
@@ -78,4 +80,59 @@
 .favoriteItemCard:hover .favorites-list {
   background-color: white;
   color: darkorange;
+}
+
+@media (max-width: 768px) {
+  .list {
+    gap: 10px;
+    margin: 10px;
+  }
+
+  .favoriteItemCard {
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+  }
+
+  .image-favorites {
+    width: 60px;
+    height: 60px;
+  }
+
+  .buttons-favorites-list {
+    flex-direction: row;
+    gap: 5px;
+  }
+
+  .favorites-list,
+  .payment-button,
+  .homepage {
+    padding: 6px 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .favorites {
+    margin-top: 100px;
+    margin-bottom: 100px;
+  }
+
+  .favoriteItemCard {
+    padding: 8px;
+  }
+
+  .image-favorites {
+    width: 50px;
+    height: 50px;
+  }
+
+  .buttons-favorites-list {
+    gap: 3px;
+  }
+
+  .favorites-list,
+  .payment-button,
+  .homepage {
+    padding: 4px 8px;
+  }
 }

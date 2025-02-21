@@ -72,9 +72,58 @@
   color: #ff7043;
 }
 
+/* Responsive design */
 @media (max-width: 768px) {
+  .about-us {
+    padding: 20px;
+  }
+
+  .about-us h1 {
+    font-size: 2rem;
+  }
+
+  .about-us p {
+    font-size: 1rem;
+  }
+
   .bio {
     flex-direction: column;
     align-items: center;
+    gap: 20px;
+  }
+
+  .person {
+    width: 90%;
+  }
+
+  .person h2 {
+    font-size: 1.2rem;
+  }
+
+  .person p {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .about-us h1 {
+    font-size: 1.8rem;
+  }
+
+  .about-us p {
+    font-size: 0.9rem;
+  }
+
+  .person {
+    width: 100%;
+    padding: 15px;
+  }
+
+  .person h2 {
+    font-size: 1.1rem;
+  }
+
+  .person p {
+    font-size: 0.8rem;
   }
 }
