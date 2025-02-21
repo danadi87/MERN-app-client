@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "../styles/ModifyAllProducts.css";
 import { API_URL } from "../config/config";
-import { useContext } from "react";
 import { ProductContext } from "../context/product.context";
+import { BackButton } from "./BackButton";
 
 export const ModifyAllProducts = () => {
   const { products, refreshProducts } = useContext(ProductContext);
@@ -81,6 +81,7 @@ export const ModifyAllProducts = () => {
 
   return (
     <div className="modify-product-container">
+      <BackButton />
       <h2 className="modify-product-title">Modify Product</h2>
 
       {/* Dropdown list to select a product */}

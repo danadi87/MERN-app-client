@@ -7,8 +7,6 @@ import { API_URL } from "../config/config";
 import { useContext } from "react";
 import { ProductContext } from "../context/product.context";
 
-
-
 export const ModifyProduct = () => {
   const { products, refreshProducts } = useContext(ProductContext);
   const { productId } = useParams();

@@ -3,6 +3,7 @@ import { API_URL } from "../config/config";
 import "../styles/Payment.css";
 import { useContext } from "react";
 import ShoppingCartContext from "../context/shoppingCart.context";
+import { BackButton } from "./BackButton";
 
 export function Payment() {
   const [formData, setFormData] = useState({
@@ -17,16 +18,15 @@ export function Payment() {
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     try {
       const response = await fetch(`${API_URL}/payment/add`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
       });
-
       const data = await response.json();
       if (response.ok) {
         alert("Payment details added successfully!");
@@ -40,8 +40,10 @@ export function Payment() {
       alert("Failed to add payment details");
     }
   };
+
   return (
-    <div className="payment-container">
+    <>
+      <BackButton />
       <h1>Add a card</h1>
       <p>
         This card will be set as your default payment method for your future
@@ -56,7 +58,7 @@ export function Payment() {
           onChange={handleChange}
           placeholder="John Smith"
           required
-        ></input>
+        />
         <label>Card number</label>
         <input
           type="text"
@@ -65,7 +67,7 @@ export function Payment() {
           onChange={handleChange}
           placeholder="4242 4242 4242 4242"
           required
-        ></input>
+        />
         <label>Expiration date</label>
         <input
           type="text"
@@ -74,7 +76,7 @@ export function Payment() {
           onChange={handleChange}
           placeholder="MM/YY"
           required
-        ></input>
+        />
         <label>CVC</label>
         <input
           type="text"
@@ -83,7 +85,7 @@ export function Payment() {
           onChange={handleChange}
           placeholder="CVC"
           required
-        ></input>
+        />
         <label>Country</label>
         <input
           type="text"
@@ -92,7 +94,7 @@ export function Payment() {
           onChange={handleChange}
           placeholder="Country"
           required
-        ></input>
+        />
         <label>Postal code</label>
         <input
           type="text"
@@ -101,14 +103,13 @@ export function Payment() {
           onChange={handleChange}
           placeholder="10018"
           required
-        ></input>
+        />
         <button type="submit">Save and pay</button>
       </form>
-
       <p>
         By continuing, you have read and accept the Terms and Conditions and
         Privay Policy
       </p>
-    </div>
+    </>
   );
 }
