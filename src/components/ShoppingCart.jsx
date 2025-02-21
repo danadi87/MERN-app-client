@@ -56,7 +56,7 @@ const ShoppingCart = () => {
 
           <button
             className="payment-button"
-            onClick={() => navigate("/payment")}
+            onClick={() => navigate("/payment-selection")}
           >
             Continue and Pay
           </button>

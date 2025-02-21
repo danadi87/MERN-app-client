@@ -29,6 +29,8 @@ import { API_URL } from "./config/config";
 import { ProductAdmin } from "./components/ProductAdmin";
 import { DeleteProduct } from "./components/DeleteProduct";
 import { ModifyAllProducts } from "./components/ModifyAllProducts";
+import { PaymentSelection } from "./components/PaymentSelection";
+import { OrderConfirmation } from "./components/OrderConfirmation";
 
 const api = axios.create({
   baseURL: `${API_URL}`,
@@ -101,6 +103,22 @@ export default function App() {
             element={
               <IsPrivate>
                 <Payment />
+              </IsPrivate>
+            }
+          />
+          <Route
+            path="/payment-selection"
+            element={
+              <IsPrivate>
+                <PaymentSelection />
+              </IsPrivate>
+            }
+          />
+          <Route
+            path="/order-confirmation"
+            element={
+              <IsPrivate>
+                <OrderConfirmation />
               </IsPrivate>
             }
           />

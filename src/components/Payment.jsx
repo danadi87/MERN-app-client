@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 import { API_URL } from "../config/config";
+import "../styles/Payment.css";
+import { useContext } from "react";
+import ShoppingCartContext from "../context/shoppingCart.context";
 
 export function Payment() {
   const [formData, setFormData] = useState({
@@ -27,6 +30,8 @@ export function Payment() {
       const data = await response.json();
       if (response.ok) {
         alert("Payment details added successfully!");
+        clearCart();
+        navigate("/order-confirmation");
       } else {
         alert("Error:" + data.message);
       }
