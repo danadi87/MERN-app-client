@@ -73,6 +73,7 @@ export const ModifyAllProducts = () => {
 
   return (
     <div className="modify-product-container">
+      <BackButton />
       <h2 className="modify-product-title">Modify Product</h2>
 
       {/* Dropdown list to select a product */}

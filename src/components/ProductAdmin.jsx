@@ -4,6 +4,7 @@ import "../styles/ProductAdmin.css";
 export function ProductAdmin() {
   return (
     <div className="product-admin-container">
+      <BackButton />
       <h1>Product</h1>
       <div className="links-product">
         <Link to="/add-product" className="product-buttons">
