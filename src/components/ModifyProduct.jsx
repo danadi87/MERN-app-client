@@ -4,8 +4,13 @@ import axios from "axios";
 import "../styles/ModifyProduct.css";
 import { BackButton } from "./BackButton";
 import { API_URL } from "../config/config";
+import { useContext } from "react";
+import { ProductContext } from "../context/product.context";
+
+
 
 export const ModifyProduct = () => {
+  const { products, refreshProducts } = useContext(ProductContext);
   const { productId } = useParams();
   const navigate = useNavigate();
   const [product, setProduct] = useState({
@@ -35,18 +40,19 @@ export const ModifyProduct = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log("Creating new product with data:", product);
+    console.log("Updating new product with data:", product);
 
     axios
-      .post(`${API_URL}/api/products`, product)
+      .put(`${API_URL}/api/products/${productId}`, product)
       .then((response) => {
-        console.log("Product successfully created:", response.data);
-        alert("Product updated (new product created)!");
+        console.log("Product successfully updated:", response.data);
+        alert("Product updated!");
+        refreshProducts();
         navigate(`/product-details/${response.data._id}`);
       })
       .catch((error) => {
         console.error(
-          "Error creating product:",
+          "Error updating product:",
           error.response?.data || error.message
         );
       });

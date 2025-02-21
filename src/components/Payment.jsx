@@ -36,7 +36,7 @@ export function Payment() {
     }
   };
   return (
-    <>
+    <div className="payment-container">
       <h1>Add a card</h1>
       <p>
         This card will be set as your default payment method for your future
@@ -104,6 +104,6 @@ export function Payment() {
         By continuing, you have read and accept the Terms and Conditions and
         Privay Policy
       </p>
-    </>
+    </div>
   );
 }
