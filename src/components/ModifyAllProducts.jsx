@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import "../styles/ModifyProduct.css"; // Assuming you have the appropriate styling
+import "../styles/ModifyAllProducts.css";
+import { API_URL } from "../config/config";
+import { useContext } from "react";
+import { ProductContext } from "../context/product.context";
 
 export const ModifyAllProducts = () => {
+  const { products, refreshProducts } = useContext(ProductContext);
   const navigate = useNavigate();
-  const [products, setProducts] = useState([]);
   const [selectedProductId, setSelectedProductId] = useState("");
   const [product, setProduct] = useState({
     title: "",
@@ -19,9 +22,9 @@ export const ModifyAllProducts = () => {
   useEffect(() => {
     // Fetch all products to populate the dropdown list
     axios
-      .get("http://localhost:5005/api/products")
+      .get(`${API_URL}/api/products`)
       .then((response) => {
-        setProducts(response.data);
+        setProduct(response.data);
       })
       .catch((error) => {
         console.error("Error fetching products: ", error);
@@ -35,7 +38,7 @@ export const ModifyAllProducts = () => {
     // Fetch the selected product details for editing
     if (productId) {
       axios
-        .get(`http://localhost:5005/api/products/${productId}`)
+        .get(`${API_URL}/api/products/${productId}`)
         .then((response) => {
           setProduct(response.data);
         })
@@ -51,7 +54,7 @@ export const ModifyAllProducts = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-
+    console.log("Updating product with ID:", selectedProductId);
     // Make sure a product is selected
     if (!selectedProductId) {
       return alert("Please select a product first.");
@@ -59,10 +62,15 @@ export const ModifyAllProducts = () => {
 
     // PUT request to update the selected product
     axios
-      .put(`http://localhost:5005/api/products/${selectedProductId}`, product)
+      .put(`${API_URL}/api/products/${selectedProductId}`, product)
       .then((response) => {
         console.log("Product updated:", response.data);
+        refreshProducts();
         alert("Product updated successfully!");
+        axios.get(`${API_URL}/api/products`).then((res) => {
+          setProduct(res.data);
+        });
+
         navigate(`/product-details/${response.data._id}`); // Redirect to the product details page
       })
       .catch((error) => {

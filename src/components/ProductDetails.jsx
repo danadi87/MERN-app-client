@@ -5,6 +5,7 @@ import "../styles/ProductDetails.css";
 import ShoppingCartContext from "../context/shoppingCart.context";
 import { API_URL } from "../config/config";
 import { BackButton } from "./BackButton";
+
 export function ProductDetails() {
   const { productId } = useParams();
   const [product, setProduct] = useState(null);
