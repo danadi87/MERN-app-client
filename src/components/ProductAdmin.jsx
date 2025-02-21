@@ -1,6 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "../styles/ProductAdmin.css";
+import { BackButton } from "./BackButton";
+
 export function ProductAdmin() {
   return (
     <div className="product-admin-container">
