@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import "../styles/Navbar.css";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../context/auth.context";
@@ -8,6 +8,10 @@ import { FaBars, FaTimes } from "react-icons/fa";
 export function Navbar() {
   const { isLoggedIn, logOutUser, isAdmin } = useContext(AuthContext);
   const [menuOpen, setMenuOpen] = useState(false);
+
+  useEffect(() => {
+    setMenuOpen(false);
+  }, [isLoggedIn]);
 
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
