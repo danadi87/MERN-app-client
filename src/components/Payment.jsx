@@ -4,6 +4,7 @@ import "../styles/Payment.css";
 import { useContext } from "react";
 import ShoppingCartContext from "../context/shoppingCart.context";
 import { BackButton } from "./BackButton";
+import { useNavigate } from "react-router-dom";
 
 export function Payment() {
   const [formData, setFormData] = useState({
@@ -14,6 +15,8 @@ export function Payment() {
     country: "",
     postalCode: "",
   });
+  const { clearCart } = useContext(ShoppingCartContext);
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
