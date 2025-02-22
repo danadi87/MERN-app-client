@@ -5,6 +5,7 @@ import { AuthContext } from "../context/auth.context";
 import { API_URL } from "../config/config";
 import { Spinner } from "./Spinner";
 import "../styles/Login.css";
+import { BackButton } from "./BackButton";
 
 export function Login() {
   const [email, setEmail] = useState("");
@@ -39,6 +40,7 @@ export function Login() {
 
   return (
     <div className="login-container">
+      <BackButton className="back-button" />
       <form onSubmit={handleLoginSubmit}>
         <h3>Login</h3>
         <label>Email</label>
