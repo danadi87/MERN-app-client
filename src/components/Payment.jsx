@@ -7,6 +7,7 @@ import { BackButton } from "./BackButton";
 import { useNavigate } from "react-router-dom";
 
 export function Payment() {
+  const { clearCart } = useContext(ShoppingCartContext);
   const [formData, setFormData] = useState({
     name: "",
     cardNumber: "",
@@ -15,7 +16,7 @@ export function Payment() {
     country: "",
     postalCode: "",
   });
-  const { clearCart } = useContext(ShoppingCartContext);
+
   const navigate = useNavigate();
 
   const handleChange = (e) => {

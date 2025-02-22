@@ -12,6 +12,7 @@ export function OrderConfirmation() {
       <button onClick={() => navigate("/payment-selection")}>
         Back to Payment Methods
       </button>
+      <button onClick={() => navigate("/")}>Back to Homepage</button>
     </div>
   );
 }

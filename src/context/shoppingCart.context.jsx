@@ -66,6 +66,7 @@ export const ShoppingCartProviderWrapper = ({ children }) => {
 
   const clearCart = () => {
     setCart([]);
+    localStorage.removeItem("cart");
   };
 
   return (

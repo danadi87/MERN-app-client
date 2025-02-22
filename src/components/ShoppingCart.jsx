@@ -1,15 +1,26 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import ShoppingCartContext from "../context/shoppingCart.context";
 import FavoritesContext from "../context/favorites.context";
 import "../styles/ShoppingCart.css";
 import heartIcon from "../assets/heart.png";
 import { BackButton } from "./BackButton";
+
 const ShoppingCart = () => {
-  const { cart, removeCart } = useContext(ShoppingCartContext);
+  const { cart, removeCart, clearCart } = useContext(ShoppingCartContext);
   const { addFavorite } = useContext(FavoritesContext);
   const navigate = useNavigate();
 
+  useEffect(() => {
+    if (cart.length === 0) {
+      console.log("Cart is empty");
+    }
+  }, [cart]);
+
+  const handlePayment = () => {
+    clearCart();
+    navigate("/payment-selection");
+  };
   return (
     <div className="cart-container">
       <BackButton />
@@ -54,10 +65,7 @@ const ShoppingCart = () => {
             );
           })}
 
-          <button
-            className="payment-button"
-            onClick={() => navigate("/payment-selection")}
-          >
+          <button className="payment-button" onClick={handlePayment}>
             Continue and Pay
           </button>
         </div>
