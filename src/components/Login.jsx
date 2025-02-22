@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/auth.context";
 import { API_URL } from "../config/config";
 import { Spinner } from "./Spinner";
+import "../styles/Login.css";
 
 export function Login() {
   const [email, setEmail] = useState("");
@@ -37,7 +38,7 @@ export function Login() {
   };
 
   return (
-    <div>
+    <div className="login-container">
       <form onSubmit={handleLoginSubmit}>
         <h3>Login</h3>
         <label>Email</label>
@@ -60,7 +61,7 @@ export function Login() {
           autoComplete="off"
           disabled={loading}
         />
-        <button type="submit" disabled={loading}>
+        <button type="submit" className="login-button" disabled={loading}>
           {loading ? <Spinner /> : "Log In"}
         </button>
       </form>
