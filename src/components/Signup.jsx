@@ -66,7 +66,7 @@ export function Signup() {
 
   return (
     <div className="signup">
-      <BackButton />
+      <BackButton className="back-button" />
       <form onSubmit={handleSignupSubmit}>
         <h1>Sign in</h1>
         <label className="label">Email</label>
@@ -110,13 +110,17 @@ export function Signup() {
           autoComplete="off"
         />
 
-        <button type="submit" disabled={submitting}>
+        <button
+          type="submit"
+          className="create-account-button"
+          disabled={submitting}
+        >
           {submitting ? <Spinner /> : "Create Account"}
         </button>
       </form>
       {errorMessage && <p className="error-message">{errorMessage}</p>}
       <p>Already have an account?</p>
-      <Link to={"/login"}> Login</Link>
+      <Link to={"/login"} className="login-button"> Login</Link>
     </div>
   );
 }

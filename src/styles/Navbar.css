@@ -29,8 +29,10 @@
 }
 .links {
   display: flex;
-
   gap: 15px;
+  align-items: center;
+  justify-content: flex-end;
+  margin-right: 30px;
 }
 
 .links a {
@@ -49,8 +51,8 @@
 }
 
 .navbar-logo {
-  width: 70px;
-  height: 70px;
+  width: 80px;
+  height: 75px;
 }
 
 @media (max-width: 768px) {
@@ -58,6 +60,14 @@
     display: block;
     margin-left: auto;
     margin-right: 30px;
+    font-size: 28px;
+    color: darkorange;
+    cursor: pointer;
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1001;
   }
 
   .links {

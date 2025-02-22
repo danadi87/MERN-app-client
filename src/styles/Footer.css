@@ -25,10 +25,11 @@
 
 .footer-content {
   display: flex;
-  justify-content: center;
+  justify-content: space-;
   align-items: center;
   flex-wrap: wrap;
   width: 100%;
+  gap: 10px;
 }
 
 .footer-section {
@@ -109,10 +110,11 @@
   .footer {
     padding: 5px 10px;
   }
-
-  .footer-section {
-    min-width: 100%;
-    text-align: center;
+  .footer-heading {
+    font-size: 1rem;
+  }
+  .footer-link {
+    font-size: 0.9rem;
   }
 
   .footer-bottom p {
