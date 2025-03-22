@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { API_URL } from "../config/config";
 
@@ -10,6 +11,8 @@ function AuthProviderWrapper(props) {
   const [user, setUser] = useState(null);
   const [authError, setAuthError] = useState(null);
   const [isAdmin, setIsAdmin] = useState(false);
+
+  const navigate = useNavigate();
 
   const storeToken = (token) => {
     localStorage.setItem("authToken", token);
@@ -32,21 +35,27 @@ function AuthProviderWrapper(props) {
           setIsAdmin(user.admin);
         })
         .catch((error) => {
-          if (error) {
-            console.log(error), setAuthError(error.response.data.message);
-            return;
+          if (error.response && error.response.status === 401) {
+            console.log(
+              "Token expired or invalid. Redirecting to login...",
+              error
+            ),
+              setAuthError(error.response.data.message);
+            // If the server sends an error response (invalid token)
+            // Update state variables
+            removeToken(); // Clear token from localStorage
+            setIsLoggedIn(false);
+            setIsLoading(false);
+            setUser(null);
+            navigate("/login");
           }
-          // If the server sends an error response (invalid token)
-          // Update state variables
-          setIsLoggedIn(false);
-          setIsLoading(false);
-          setUser(null);
         });
     } else {
       // If the token is not available
       setIsLoggedIn(false);
       setIsLoading(false);
       setUser(null);
+      navigate("/signup");
     }
   };
 
